@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import YouTubePodcasts from "./YouTubePodcasts";
 
 interface PodcastSummary {
   id: string;
@@ -435,6 +436,8 @@ export default function PodcastSearch() {
 
       {!hasSearched && !searching && (
         <div className="space-y-6">
+          <YouTubePodcasts />
+
           <div>
             <h3 className="text-sm font-semibold text-zinc-300 uppercase tracking-wide mb-2">
               Discover by topic
