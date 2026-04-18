@@ -6,6 +6,7 @@ import TaskProgress from "@/components/TaskProgress";
 import ChannelSidebar from "@/components/ChannelSidebar";
 import VideoList from "@/components/VideoList";
 import SubtitleViewer from "@/components/SubtitleViewer";
+import PodcastSearch from "@/components/PodcastSearch";
 
 interface TaskStage {
   id: string;
@@ -65,7 +66,7 @@ export default function Home() {
     channel: string;
     filename: string;
   } | null>(null);
-  const [view, setView] = useState<"tasks" | "browse">("tasks");
+  const [view, setView] = useState<"tasks" | "browse" | "podcasts">("tasks");
 
   const requestTasks = useCallback(async (): Promise<Task[]> => {
     const res = await fetch("/api/tasks");
@@ -262,6 +263,16 @@ export default function Home() {
             >
               Browse
             </button>
+            <button
+              onClick={() => setView("podcasts")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                view === "podcasts"
+                  ? "bg-zinc-700 text-white"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-800"
+              }`}
+            >
+              Podcasts
+            </button>
           </nav>
         </div>
       </header>
@@ -290,6 +301,8 @@ export default function Home() {
             </div>
           </div>
         )}
+
+        {view === "podcasts" && <PodcastSearch />}
 
         {view === "browse" && (
           <div className="flex gap-6 min-h-[calc(100vh-120px)]">
