@@ -24,6 +24,23 @@ interface TopPodcastSummary {
   releaseDate: string | null;
 }
 
+const DISCOVERY_TOPICS: { label: string; term: string }[] = [
+  { label: "AI", term: "artificial intelligence" },
+  { label: "Tech", term: "technology" },
+  { label: "Startups", term: "startups" },
+  { label: "Business", term: "business" },
+  { label: "Science", term: "science" },
+  { label: "History", term: "history" },
+  { label: "Health", term: "health" },
+  { label: "Comedy", term: "comedy" },
+  { label: "News", term: "daily news" },
+  { label: "Education", term: "education" },
+  { label: "Crypto", term: "cryptocurrency" },
+  { label: "Design", term: "design" },
+  { label: "Productivity", term: "productivity" },
+  { label: "Finance", term: "personal finance" },
+];
+
 const TOP_COUNTRIES: { code: string; label: string }[] = [
   { code: "us", label: "United States" },
   { code: "gb", label: "United Kingdom" },
@@ -212,6 +229,11 @@ export default function PodcastSearch() {
     void runSearch(query);
   };
 
+  const handleTopicClick = (topic: { label: string; term: string }) => {
+    setQuery(topic.term);
+    void runSearch(topic.term);
+  };
+
   if (selectedPodcast) {
     return (
       <div className="space-y-6">
@@ -336,7 +358,24 @@ export default function PodcastSearch() {
       )}
 
       {!hasSearched && !searching && (
-        <div className="space-y-4">
+        <div className="space-y-6">
+          <div>
+            <h3 className="text-sm font-semibold text-zinc-300 uppercase tracking-wide mb-2">
+              Discover by topic
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {DISCOVERY_TOPICS.map((topic) => (
+                <button
+                  key={topic.label}
+                  onClick={() => handleTopicClick(topic)}
+                  className="px-3 py-1.5 rounded-full text-xs font-medium bg-zinc-900 border border-zinc-800 text-zinc-300 hover:bg-zinc-800 hover:text-white hover:border-zinc-700 transition-colors"
+                >
+                  {topic.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="flex items-center justify-between gap-3">
             <div>
               <h3 className="text-sm font-semibold text-zinc-300 uppercase tracking-wide">
