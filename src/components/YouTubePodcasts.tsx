@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { YOUTUBE_PODCASTS, type YoutubePodcast } from "@/lib/youtube-podcasts";
 
 interface Props {
@@ -8,6 +8,10 @@ interface Props {
 }
 
 type Status = "idle" | "loading" | "done" | "error";
+
+interface YoutubePodcastWithAvatar extends YoutubePodcast {
+  avatarUrl: string | null;
+}
 
 function initials(name: string): string {
   const cleaned = name.replace(/[^A-Za-z0-9 ]/g, "").trim();
@@ -43,6 +47,29 @@ function colorFor(name: string): string {
 export default function YouTubePodcasts({ onArchived }: Props) {
   const [statusByUrl, setStatusByUrl] = useState<Record<string, Status>>({});
   const [errorByUrl, setErrorByUrl] = useState<Record<string, string>>({});
+  const [podcasts, setPodcasts] = useState<YoutubePodcastWithAvatar[]>(
+    YOUTUBE_PODCASTS.map((podcast) => ({ ...podcast, avatarUrl: null }))
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadAvatars = async () => {
+      try {
+        const res = await fetch("/api/youtube-podcasts");
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!cancelled && Array.isArray(data?.podcasts)) {
+          setPodcasts(data.podcasts as YoutubePodcastWithAvatar[]);
+        }
+      } catch {
+        // Keep fallback initials avatars
+      }
+    };
+    void loadAvatars();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const handleArchive = async (podcast: YoutubePodcast) => {
     setStatusByUrl((prev) => ({ ...prev, [podcast.url]: "loading" }));
@@ -82,7 +109,7 @@ export default function YouTubePodcasts({ onArchived }: Props) {
       </div>
 
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-        {YOUTUBE_PODCASTS.map((podcast) => {
+        {podcasts.map((podcast) => {
           const status = statusByUrl[podcast.url] ?? "idle";
           const error = errorByUrl[podcast.url];
           return (
@@ -90,13 +117,22 @@ export default function YouTubePodcasts({ onArchived }: Props) {
               key={podcast.url}
               className="flex gap-3 p-3 rounded-md border border-zinc-800 bg-zinc-900/40 hover:border-zinc-700 transition-colors"
             >
-              <div
-                className={`w-12 h-12 rounded flex-shrink-0 flex items-center justify-center text-white font-bold text-sm ${colorFor(
-                  podcast.name
-                )}`}
-              >
-                {initials(podcast.name)}
-              </div>
+              {podcast.avatarUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={podcast.avatarUrl}
+                  alt={podcast.name}
+                  className="w-12 h-12 rounded object-cover flex-shrink-0"
+                />
+              ) : (
+                <div
+                  className={`w-12 h-12 rounded flex-shrink-0 flex items-center justify-center text-white font-bold text-sm ${colorFor(
+                    podcast.name
+                  )}`}
+                >
+                  {initials(podcast.name)}
+                </div>
+              )}
               <div className="min-w-0 flex-1">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
