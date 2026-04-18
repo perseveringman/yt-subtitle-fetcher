@@ -73,6 +73,22 @@ interface EpisodeSummary {
   artworkUrl: string | null;
 }
 
+interface EpisodeSearchResult {
+  id: string;
+  title: string;
+  podcastId: string | null;
+  podcastTitle: string;
+  podcastAuthor: string;
+  description: string;
+  releaseDate: string | null;
+  durationMs: number | null;
+  audioUrl: string | null;
+  episodeUrl: string | null;
+  artworkUrl: string | null;
+}
+
+type SearchMode = "podcasts" | "episodes";
+
 function formatDuration(ms: number | null): string {
   if (!ms || ms <= 0) return "—";
   const totalSeconds = Math.floor(ms / 1000);
@@ -102,7 +118,11 @@ function stripHtml(value: string): string {
 
 export default function PodcastSearch() {
   const [query, setQuery] = useState("");
+  const [searchMode, setSearchMode] = useState<SearchMode>("podcasts");
   const [results, setResults] = useState<PodcastSummary[]>([]);
+  const [episodeResults, setEpisodeResults] = useState<EpisodeSearchResult[]>(
+    []
+  );
   const [searching, setSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
@@ -156,24 +176,33 @@ export default function PodcastSearch() {
     };
   }, [topCountry]);
 
-  const runSearch = useCallback(async (term: string) => {
+  const runSearch = useCallback(async (term: string, mode: SearchMode) => {
     if (!term.trim()) return;
     setSearching(true);
     setSearchError(null);
     setHasSearched(true);
     try {
-      const res = await fetch(
-        `/api/podcasts/search?term=${encodeURIComponent(term.trim())}`
-      );
+      const endpoint =
+        mode === "episodes"
+          ? `/api/episodes/search?term=${encodeURIComponent(term.trim())}`
+          : `/api/podcasts/search?term=${encodeURIComponent(term.trim())}`;
+      const res = await fetch(endpoint);
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data?.error || `Search failed (${res.status})`);
       }
-      setResults((data.results ?? []) as PodcastSummary[]);
+      if (mode === "episodes") {
+        setEpisodeResults((data.results ?? []) as EpisodeSearchResult[]);
+        setResults([]);
+      } else {
+        setResults((data.results ?? []) as PodcastSummary[]);
+        setEpisodeResults([]);
+      }
     } catch (error) {
       setResults([]);
+      setEpisodeResults([]);
       setSearchError(
-        error instanceof Error ? error.message : "Failed to search podcasts."
+        error instanceof Error ? error.message : "Failed to search."
       );
     } finally {
       setSearching(false);
@@ -226,12 +255,30 @@ export default function PodcastSearch() {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    void runSearch(query);
+    void runSearch(query, searchMode);
   };
 
   const handleTopicClick = (topic: { label: string; term: string }) => {
     setQuery(topic.term);
-    void runSearch(topic.term);
+    void runSearch(topic.term, searchMode);
+  };
+
+  const handleModeChange = (mode: SearchMode) => {
+    if (mode === searchMode) return;
+    setSearchMode(mode);
+    if (query.trim() && hasSearched) {
+      void runSearch(query, mode);
+    }
+  };
+
+  const handleOpenPodcastFromEpisode = (episode: EpisodeSearchResult) => {
+    if (!episode.podcastId) return;
+    setSelectedPodcast({
+      id: episode.podcastId,
+      title: episode.podcastTitle,
+      author: episode.podcastAuthor,
+      artworkUrl: episode.artworkUrl,
+    });
   };
 
   if (selectedPodcast) {
@@ -329,33 +376,62 @@ export default function PodcastSearch() {
 
   return (
     <div className="space-y-6">
-      <form onSubmit={handleSubmit} className="flex gap-2">
-        <input
-          type="text"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder="Search podcasts (e.g. 'Lex Fridman', 'tech news')"
-          className="flex-1 px-4 py-2 rounded-lg bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-600"
-        />
-        <button
-          type="submit"
-          disabled={searching || !query.trim()}
-          className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 disabled:bg-zinc-700 disabled:text-zinc-400 text-white text-sm font-medium transition-colors"
-        >
-          {searching ? "Searching…" : "Search"}
-        </button>
-      </form>
+      <div className="space-y-2">
+        <div className="inline-flex rounded-lg bg-zinc-900 border border-zinc-800 p-0.5">
+          {(["podcasts", "episodes"] as const).map((mode) => (
+            <button
+              key={mode}
+              type="button"
+              onClick={() => handleModeChange(mode)}
+              className={`px-3 py-1 rounded-md text-xs font-medium transition-colors ${
+                searchMode === mode
+                  ? "bg-zinc-700 text-white"
+                  : "text-zinc-400 hover:text-white"
+              }`}
+            >
+              {mode === "podcasts" ? "Podcasts" : "Episodes"}
+            </button>
+          ))}
+        </div>
+
+        <form onSubmit={handleSubmit} className="flex gap-2">
+          <input
+            type="text"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder={
+              searchMode === "episodes"
+                ? "Search episodes (e.g. 'GPT-4', 'climate change')"
+                : "Search podcasts (e.g. 'Lex Fridman', 'tech news')"
+            }
+            className="flex-1 px-4 py-2 rounded-lg bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-600"
+          />
+          <button
+            type="submit"
+            disabled={searching || !query.trim()}
+            className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 disabled:bg-zinc-700 disabled:text-zinc-400 text-white text-sm font-medium transition-colors"
+          >
+            {searching ? "Searching…" : "Search"}
+          </button>
+        </form>
+      </div>
 
       {searchError && (
         <div className="text-red-400 text-sm">{searchError}</div>
       )}
 
-      {!searchError && hasSearched && !searching && results.length === 0 && (
-        <div className="text-center py-16 text-zinc-500">
-          <p className="text-lg">No podcasts found</p>
-          <p className="text-sm mt-1">Try a different search term.</p>
-        </div>
-      )}
+      {!searchError &&
+        hasSearched &&
+        !searching &&
+        ((searchMode === "podcasts" && results.length === 0) ||
+          (searchMode === "episodes" && episodeResults.length === 0)) && (
+          <div className="text-center py-16 text-zinc-500">
+            <p className="text-lg">
+              No {searchMode === "episodes" ? "episodes" : "podcasts"} found
+            </p>
+            <p className="text-sm mt-1">Try a different search term.</p>
+          </div>
+        )}
 
       {!hasSearched && !searching && (
         <div className="space-y-6">
@@ -445,8 +521,78 @@ export default function PodcastSearch() {
         </div>
       )}
 
+      {searchMode === "episodes" && episodeResults.length > 0 && (
+        <ul className="space-y-2">
+          {episodeResults.map((episode) => (
+            <li
+              key={episode.id}
+              className="border border-zinc-800 rounded-lg p-3 bg-zinc-900/40 hover:border-zinc-700 transition-colors"
+            >
+              <div className="flex gap-3">
+                {episode.artworkUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={episode.artworkUrl}
+                    alt={episode.podcastTitle}
+                    className="w-14 h-14 rounded object-cover flex-shrink-0"
+                  />
+                ) : (
+                  <div className="w-14 h-14 rounded bg-zinc-800 flex-shrink-0" />
+                )}
+                <div className="min-w-0 flex-1">
+                  <h4 className="text-white text-sm font-medium line-clamp-2">
+                    {episode.title}
+                  </h4>
+                  <div className="flex items-center gap-2 mt-1 text-xs">
+                    {episode.podcastId ? (
+                      <button
+                        onClick={() => handleOpenPodcastFromEpisode(episode)}
+                        className="text-zinc-300 hover:text-white truncate"
+                      >
+                        {episode.podcastTitle}
+                      </button>
+                    ) : (
+                      <span className="text-zinc-300 truncate">
+                        {episode.podcastTitle}
+                      </span>
+                    )}
+                    <span className="text-zinc-500">·</span>
+                    <span className="text-zinc-500">
+                      {formatDuration(episode.durationMs)}
+                    </span>
+                    {episode.releaseDate && (
+                      <>
+                        <span className="text-zinc-500">·</span>
+                        <span className="text-zinc-500">
+                          {formatReleaseDate(episode.releaseDate)}
+                        </span>
+                      </>
+                    )}
+                  </div>
+                  {episode.description && (
+                    <p className="text-xs text-zinc-400 mt-2 line-clamp-2">
+                      {stripHtml(episode.description)}
+                    </p>
+                  )}
+                </div>
+                {episode.episodeUrl && (
+                  <a
+                    href={episode.episodeUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-xs text-zinc-400 hover:text-white whitespace-nowrap self-start"
+                  >
+                    Open ↗
+                  </a>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-        {results.map((podcast) => (
+        {searchMode === "podcasts" && results.map((podcast) => (
           <li key={podcast.id}>
             <button
               onClick={() => setSelectedPodcast(podcast)}
