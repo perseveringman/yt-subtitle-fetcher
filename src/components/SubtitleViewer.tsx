@@ -10,144 +10,84 @@ import {
 } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import {
+  formatDate,
+  formatNumber,
+  parseRecord,
+  readingStats,
+  youtubeThumbnail,
+  youtubeWatchUrl,
+  type Chapter,
+  type ParsedRecord,
+} from "@/lib/markdown-record";
 
 interface Props {
   channel: string;
   filename: string;
 }
 
-interface Frontmatter {
-  title?: string;
-  channel_name?: string;
-  channel_id?: string;
-  uploader_id?: string;
-  video_id?: string;
-  video_url?: string;
-  published_at?: string;
-  upload_date?: string;
-  duration_human?: string;
-  duration_seconds?: string;
-  view_count?: string;
-  like_count?: string;
-  language?: string;
-  has_subtitle?: string;
-  fetched_at?: string;
-  source?: string;
-  source_type?: string;
-  availability?: string;
-  [key: string]: string | undefined;
+type Tab = "overview" | "chapters" | "transcript" | "raw";
+
+const PRETTY_LABELS: Record<string, string> = {
+  source: "Source",
+  source_type: "Source type",
+  channel_name: "Channel",
+  channel_id: "Channel ID",
+  uploader_id: "Uploader",
+  uploader_url: "Uploader URL",
+  video_url: "Video URL",
+  video_id: "Video ID",
+  duration: "Duration",
+  duration_human: "Duration",
+  view_count: "Views",
+  like_count: "Likes",
+  has_subtitle: "Has subtitle",
+  language: "Language",
+  availability: "Availability",
+  tags: "Tags",
+  categories: "Categories",
+  upload_date: "Upload date",
+  published_at: "Published",
+  fetched_at: "Fetched",
+  archive_version: "Archive version",
+};
+
+function pretty(key: string): string {
+  return (
+    PRETTY_LABELS[key] ??
+    key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+  );
 }
 
-interface Heading {
-  level: number;
-  text: string;
-  id: string;
-}
-
-function parseFrontmatter(raw: string): { meta: Frontmatter; body: string } {
-  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
-  if (!match) return { meta: {}, body: raw };
-  const meta: Frontmatter = {};
-  for (const line of match[1].split(/\r?\n/)) {
-    const idx = line.indexOf(":");
-    if (idx === -1) continue;
-    const key = line.slice(0, idx).trim();
-    let value = line.slice(idx + 1).trim();
-    if (
-      (value.startsWith('"') && value.endsWith('"')) ||
-      (value.startsWith("'") && value.endsWith("'"))
-    ) {
-      value = value.slice(1, -1);
-    }
-    if (key) meta[key] = value;
+function formatValue(key: string, value: string): string {
+  if (key.endsWith("_at") || key === "fetched_at" || key === "published_at") {
+    const f = formatDate(value);
+    if (f) return f;
   }
-  return { meta, body: raw.slice(match[0].length) };
-}
-
-function slugify(input: string): string {
-  return input
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}\s-]/gu, "")
-    .trim()
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-")
-    .slice(0, 80);
-}
-
-function nodeToText(node: ReactNode): string {
-  if (node == null || typeof node === "boolean") return "";
-  if (typeof node === "string" || typeof node === "number") return String(node);
-  if (Array.isArray(node)) return node.map(nodeToText).join("");
-  if (typeof node === "object" && "props" in node) {
-    const props = (node as { props?: { children?: ReactNode } }).props;
-    return nodeToText(props?.children);
+  if (key.includes("count")) {
+    const n = formatNumber(value);
+    if (n) return n;
   }
-  return "";
+  return value;
 }
 
-function extractHeadings(body: string): Heading[] {
-  const headings: Heading[] = [];
-  const used = new Map<string, number>();
-  let inFence = false;
-  for (const line of body.split(/\r?\n/)) {
-    if (/^```/.test(line)) {
-      inFence = !inFence;
-      continue;
-    }
-    if (inFence) continue;
-    const m = line.match(/^(#{1,6})\s+(.+?)\s*#*\s*$/);
-    if (!m) continue;
-    const level = m[1].length;
-    const text = m[2].trim();
-    let id = slugify(text);
-    if (!id) id = `heading-${headings.length + 1}`;
-    const count = used.get(id) ?? 0;
-    used.set(id, count + 1);
-    if (count > 0) id = `${id}-${count}`;
-    headings.push({ level, text, id });
-  }
-  return headings;
+function isUrl(value: string): boolean {
+  return /^https?:\/\//i.test(value);
 }
 
-function stripMarkdown(body: string): string {
-  return body
-    .replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "")
-    .replace(/```[\s\S]*?```/g, " ")
-    .replace(/`([^`]*)`/g, "$1")
-    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
-    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
-    .replace(/[#>*_~`]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+function paragraphsFrom(text: string): string[] {
+  return text
+    .split(/\n{2,}/)
+    .map((p) => p.replace(/\s+\n/g, " ").trim())
+    .filter(Boolean);
 }
 
-function formatNumber(value: string | undefined): string | null {
-  if (!value) return null;
-  const n = Number(value);
-  if (!Number.isFinite(n)) return null;
-  return new Intl.NumberFormat("en-US").format(n);
-}
-
-function formatDate(value: string | undefined): string | null {
-  if (!value) return null;
-  const d = new Date(value);
-  if (Number.isNaN(d.getTime())) return null;
-  return d.toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
-
-function youtubeWatchUrl(meta: Frontmatter): string | null {
-  if (meta.video_url) return meta.video_url;
-  if (meta.video_id) return `https://www.youtube.com/watch?v=${meta.video_id}`;
-  return null;
-}
-
-function youtubeThumbnail(meta: Frontmatter): string | null {
-  if (!meta.video_id) return null;
-  return `https://i.ytimg.com/vi/${meta.video_id}/hqdefault.jpg`;
+function transcriptParagraphs(text: string): string[] {
+  if (!text) return [];
+  return text
+    .split(/\n{2,}/)
+    .map((p) => p.replace(/\s+/g, " ").trim())
+    .filter(Boolean);
 }
 
 export default function SubtitleViewer({ channel, filename }: Props) {
@@ -155,21 +95,17 @@ export default function SubtitleViewer({ channel, filename }: Props) {
     content: string | null;
     loading: boolean;
   }>({ content: null, loading: true });
-  const [viewMode, setViewMode] = useState<"rendered" | "raw">("rendered");
+  const [tab, setTab] = useState<Tab>("overview");
   const [copyState, setCopyState] = useState<"idle" | "copied">("idle");
-  const [tocOpen, setTocOpen] = useState(true);
-  const [activeId, setActiveId] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
-
   const articleRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     let cancelled = false;
     setState({ content: null, loading: true });
-    setActiveId(null);
+    setTab("overview");
     setProgress(0);
-
-    const loadRecord = async () => {
+    const load = async () => {
       try {
         const res = await fetch(
           `/api/channels/${encodeURIComponent(channel)}/videos/${encodeURIComponent(filename)}`
@@ -186,65 +122,21 @@ export default function SubtitleViewer({ channel, filename }: Props) {
         if (!cancelled) setState({ content: null, loading: false });
       }
     };
-
-    void loadRecord();
+    void load();
     return () => {
       cancelled = true;
     };
   }, [channel, filename]);
 
-  const { meta, body } = useMemo(
-    () => (state.content ? parseFrontmatter(state.content) : { meta: {}, body: "" }),
+  const record: ParsedRecord | null = useMemo(
+    () => (state.content ? parseRecord(state.content) : null),
     [state.content]
   );
 
-  const headings = useMemo(() => extractHeadings(body), [body]);
-
-  const stats = useMemo(() => {
-    const text = stripMarkdown(body);
-    const words = text ? text.split(/\s+/).length : 0;
-    const minutes = Math.max(1, Math.round(words / 220));
-    return { words, minutes };
-  }, [body]);
-
-  const watchUrl = youtubeWatchUrl(meta);
-  const thumb = youtubeThumbnail(meta);
-  const title = meta.title || filename.replace(/\.md$/i, "");
-
-  const handleCopyMarkdown = useCallback(async () => {
-    if (!state.content) return;
-    try {
-      await navigator.clipboard.writeText(state.content);
-      setCopyState("copied");
-      setTimeout(() => setCopyState("idle"), 1500);
-    } catch {
-      // ignore
-    }
-  }, [state.content]);
-
-  const handleCopyText = useCallback(async () => {
-    if (!body) return;
-    try {
-      await navigator.clipboard.writeText(stripMarkdown(body));
-      setCopyState("copied");
-      setTimeout(() => setCopyState("idle"), 1500);
-    } catch {
-      // ignore
-    }
-  }, [body]);
-
-  const handleDownload = useCallback(() => {
-    if (!state.content) return;
-    const blob = new Blob([state.content], { type: "text/markdown" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename.endsWith(".md") ? filename : `${filename}.md`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 0);
-  }, [state.content, filename]);
+  const stats = useMemo(
+    () => (record ? readingStats(record.transcript) : { words: 0, minutes: 0 }),
+    [record]
+  );
 
   // Reading progress
   useEffect(() => {
@@ -264,67 +156,42 @@ export default function SubtitleViewer({ channel, filename }: Props) {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
+  }, [state.content, tab]);
+
+  const handleCopyMarkdown = useCallback(async () => {
+    if (!state.content) return;
+    try {
+      await navigator.clipboard.writeText(state.content);
+      setCopyState("copied");
+      setTimeout(() => setCopyState("idle"), 1500);
+    } catch {
+      // ignore
+    }
   }, [state.content]);
 
-  // Scroll-spy for TOC
-  useEffect(() => {
-    if (!state.content || headings.length === 0) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible[0]?.target.id) setActiveId(visible[0].target.id);
-      },
-      { rootMargin: "-80px 0px -70% 0px", threshold: [0, 1] }
-    );
-    headings.forEach((h) => {
-      const el = document.getElementById(h.id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, [headings, state.content, viewMode]);
+  const handleCopyTranscript = useCallback(async () => {
+    if (!record?.transcript) return;
+    try {
+      await navigator.clipboard.writeText(record.transcript);
+      setCopyState("copied");
+      setTimeout(() => setCopyState("idle"), 1500);
+    } catch {
+      // ignore
+    }
+  }, [record]);
 
-  const handleTocClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-      e.preventDefault();
-      const el = document.getElementById(id);
-      if (el) {
-        const top = el.getBoundingClientRect().top + window.scrollY - 70;
-        window.scrollTo({ top, behavior: "smooth" });
-        setActiveId(id);
-      }
-    },
-    []
-  );
-
-  const renderHeading = (level: number) => {
-    const Tag = `h${level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-    const Component = ({ children }: { children?: ReactNode }) => {
-      const text = nodeToText(children);
-      const id = slugify(text) || `heading-${Math.random().toString(36).slice(2, 8)}`;
-      return (
-        <Tag id={id} className="group scroll-mt-20 relative">
-          <a
-            href={`#${id}`}
-            className="absolute -left-5 top-1/2 -translate-y-1/2 text-zinc-600 opacity-0 group-hover:opacity-100 transition-opacity no-underline"
-            aria-label="Anchor link"
-            onClick={(e) => {
-              e.preventDefault();
-              const url = `${window.location.pathname}${window.location.search}#${id}`;
-              window.history.replaceState(null, "", url);
-              navigator.clipboard?.writeText(window.location.href).catch(() => {});
-            }}
-          >
-            #
-          </a>
-          {children}
-        </Tag>
-      );
-    };
-    Component.displayName = `MdHeading${level}`;
-    return Component;
-  };
+  const handleDownload = useCallback(() => {
+    if (!state.content) return;
+    const blob = new Blob([state.content], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename.endsWith(".md") ? filename : `${filename}.md`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 0);
+  }, [state.content, filename]);
 
   if (state.loading) {
     return (
@@ -350,7 +217,7 @@ export default function SubtitleViewer({ channel, filename }: Props) {
     );
   }
 
-  if (!state.content) {
+  if (!state.content || !record) {
     return (
       <div className="text-center py-16 text-zinc-500">
         Video record not found
@@ -358,23 +225,46 @@ export default function SubtitleViewer({ channel, filename }: Props) {
     );
   }
 
-  const metaChips: { label: string; value: string }[] = [];
+  const { meta, summaryExtras, description, externalLinks, sponsors, chapters } =
+    record;
+  const watchUrl = youtubeWatchUrl(meta);
+  const thumb = youtubeThumbnail(meta);
+  const title = meta.title || filename.replace(/\.md$/i, "");
+
+  // Chips for header
+  const chips: { label: string; value: string }[] = [];
   const channelLabel = meta.channel_name || meta.uploader_id;
-  if (channelLabel) metaChips.push({ label: "Channel", value: channelLabel });
+  if (channelLabel) chips.push({ label: "Channel", value: channelLabel });
   const published = formatDate(meta.published_at) || formatDate(meta.upload_date);
-  if (published) metaChips.push({ label: "Published", value: published });
-  if (meta.duration_human)
-    metaChips.push({ label: "Duration", value: meta.duration_human });
+  if (published) chips.push({ label: "Published", value: published });
+  if (meta.duration_human) chips.push({ label: "Duration", value: meta.duration_human });
   const views = formatNumber(meta.view_count);
-  if (views) metaChips.push({ label: "Views", value: views });
+  if (views) chips.push({ label: "Views", value: views });
   const likes = formatNumber(meta.like_count);
-  if (likes) metaChips.push({ label: "Likes", value: likes });
+  if (likes) chips.push({ label: "Likes", value: likes });
   if (meta.language)
-    metaChips.push({ label: "Language", value: meta.language.toUpperCase() });
-  metaChips.push({
-    label: "Reading",
-    value: `${stats.minutes} min · ${formatNumber(String(stats.words)) ?? stats.words} words`,
-  });
+    chips.push({ label: "Language", value: meta.language.toUpperCase() });
+  if (stats.words > 0)
+    chips.push({
+      label: "Reading",
+      value: `${stats.minutes} min · ${formatNumber(String(stats.words)) ?? stats.words} words`,
+    });
+
+  const tabs: { id: Tab; label: string; count?: number; show: boolean }[] = [
+    { id: "overview", label: "Overview", show: true },
+    {
+      id: "chapters",
+      label: "Chapters",
+      count: chapters.length,
+      show: chapters.length > 0,
+    },
+    {
+      id: "transcript",
+      label: "Transcript",
+      show: record.transcript.length > 0,
+    },
+    { id: "raw", label: "Raw", show: true },
+  ];
 
   return (
     <div className="relative">
@@ -388,166 +278,201 @@ export default function SubtitleViewer({ channel, filename }: Props) {
         </div>
       </div>
 
-      <div className="flex gap-6 items-start">
-        {/* Main content */}
-        <article
-          ref={articleRef}
-          className="flex-1 min-w-0 bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden"
-        >
-          {/* Header / meta card */}
-          <header className="p-5 sm:p-7 border-b border-zinc-800 bg-gradient-to-b from-zinc-900 to-zinc-900/40">
-            <div className="flex gap-5">
-              {thumb && (
-                <a
-                  href={watchUrl ?? "#"}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex-shrink-0 w-40 sm:w-56 aspect-video rounded-lg overflow-hidden border border-zinc-800 hover:border-zinc-600 transition-colors group relative bg-zinc-950"
-                  aria-label="Watch on YouTube"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={thumb}
-                    alt=""
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).style.display =
-                        "none";
-                    }}
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30">
-                    <div className="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
-                      <svg
-                        viewBox="0 0 24 24"
-                        className="w-5 h-5 text-white ml-0.5"
-                        fill="currentColor"
-                      >
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
-                  </div>
-                </a>
-              )}
-              <div className="min-w-0 flex-1">
-                <h1 className="text-xl sm:text-2xl font-semibold text-white leading-tight">
-                  {title}
-                </h1>
-                <div className="mt-2 flex flex-wrap gap-1.5">
-                  {metaChips.map((chip) => (
-                    <span
-                      key={chip.label}
-                      className="text-[11px] px-2 py-0.5 rounded-full bg-zinc-800/80 text-zinc-300 border border-zinc-700/60"
-                    >
-                      <span className="text-zinc-500 mr-1">{chip.label}</span>
-                      {chip.value}
-                    </span>
-                  ))}
-                </div>
-                {watchUrl && (
-                  <a
-                    href={watchUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 mt-3 text-sm text-red-400 hover:text-red-300"
-                  >
+      <article
+        ref={articleRef}
+        className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden"
+      >
+        {/* Header */}
+        <header className="p-5 sm:p-7 border-b border-zinc-800 bg-gradient-to-b from-zinc-900 to-zinc-900/40">
+          <div className="flex gap-5">
+            {thumb && (
+              <a
+                href={watchUrl ?? "#"}
+                target="_blank"
+                rel="noreferrer"
+                className="flex-shrink-0 w-40 sm:w-56 aspect-video rounded-lg overflow-hidden border border-zinc-800 hover:border-zinc-600 transition-colors group relative bg-zinc-950"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={thumb}
+                  alt=""
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.display = "none";
+                  }}
+                />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30">
+                  <div className="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
                     <svg
                       viewBox="0 0 24 24"
-                      className="w-4 h-4"
+                      className="w-5 h-5 text-white ml-0.5"
                       fill="currentColor"
                     >
-                      <path d="M23 12s0-3.7-.5-5.5c-.3-1-1-1.8-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5c-1 .2-1.7 1-2 2C1 8.3 1 12 1 12s0 3.7.5 5.5c.3 1 1 1.8 2 2 1.8.5 8.5.5 8.5.5s6.7 0 8.5-.5c1-.2 1.7-1 2-2 .5-1.8.5-5.5.5-5.5zM10 15.5v-7l6 3.5-6 3.5z" />
+                      <path d="M8 5v14l11-7z" />
                     </svg>
-                    Watch on YouTube
-                  </a>
-                )}
+                  </div>
+                </div>
+              </a>
+            )}
+            <div className="min-w-0 flex-1">
+              <h1 className="text-xl sm:text-2xl font-semibold text-white leading-tight">
+                {title}
+              </h1>
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {chips.map((chip) => (
+                  <span
+                    key={chip.label}
+                    className="text-[11px] px-2 py-0.5 rounded-full bg-zinc-800/80 text-zinc-300 border border-zinc-700/60"
+                  >
+                    <span className="text-zinc-500 mr-1">{chip.label}</span>
+                    {chip.value}
+                  </span>
+                ))}
               </div>
-            </div>
-          </header>
-
-          {/* Toolbar */}
-          <div className="sticky top-1 z-10 flex flex-wrap items-center gap-1 px-4 sm:px-6 py-2 bg-zinc-900/95 backdrop-blur border-b border-zinc-800">
-            <div className="flex rounded-md overflow-hidden border border-zinc-700 text-xs">
-              <button
-                onClick={() => setViewMode("rendered")}
-                className={`px-2.5 py-1 transition-colors ${
-                  viewMode === "rendered"
-                    ? "bg-zinc-700 text-white"
-                    : "bg-zinc-900 text-zinc-400 hover:text-white"
-                }`}
-              >
-                Rendered
-              </button>
-              <button
-                onClick={() => setViewMode("raw")}
-                className={`px-2.5 py-1 transition-colors ${
-                  viewMode === "raw"
-                    ? "bg-zinc-700 text-white"
-                    : "bg-zinc-900 text-zinc-400 hover:text-white"
-                }`}
-              >
-                Raw
-              </button>
-            </div>
-            <div className="ml-auto flex items-center gap-1">
-              <button
-                onClick={() => setTocOpen((v) => !v)}
-                className="hidden lg:inline-flex text-xs px-2.5 py-1 rounded-md border border-zinc-700 text-zinc-300 hover:bg-zinc-800"
-                title="Toggle outline"
-              >
-                {tocOpen ? "Hide outline" : "Show outline"}
-              </button>
-              <button
-                onClick={handleCopyText}
-                className="text-xs px-2.5 py-1 rounded-md border border-zinc-700 text-zinc-300 hover:bg-zinc-800"
-                title="Copy plain text"
-              >
-                Copy text
-              </button>
-              <button
-                onClick={handleCopyMarkdown}
-                className="text-xs px-2.5 py-1 rounded-md border border-zinc-700 text-zinc-300 hover:bg-zinc-800"
-                title="Copy markdown"
-              >
-                {copyState === "copied" ? "Copied ✓" : "Copy MD"}
-              </button>
-              <button
-                onClick={handleDownload}
-                className="text-xs px-2.5 py-1 rounded-md border border-zinc-700 text-zinc-300 hover:bg-zinc-800"
-                title="Download .md"
-              >
-                Download
-              </button>
+              {watchUrl && (
+                <a
+                  href={watchUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 mt-3 text-sm text-red-400 hover:text-red-300"
+                >
+                  <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
+                    <path d="M23 12s0-3.7-.5-5.5c-.3-1-1-1.8-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5c-1 .2-1.7 1-2 2C1 8.3 1 12 1 12s0 3.7.5 5.5c.3 1 1 1.8 2 2 1.8.5 8.5.5 8.5.5s6.7 0 8.5-.5c1-.2 1.7-1 2-2 .5-1.8.5-5.5.5-5.5zM10 15.5v-7l6 3.5-6 3.5z" />
+                  </svg>
+                  Watch on YouTube
+                </a>
+              )}
             </div>
           </div>
+        </header>
 
-          {/* Body */}
-          <div className="p-5 sm:p-8">
-            {viewMode === "rendered" ? (
-              <div
-                className="prose prose-invert prose-sm sm:prose-base max-w-none
-                  prose-headings:text-zinc-100 prose-headings:font-semibold prose-headings:scroll-mt-20
-                  prose-h1:text-2xl prose-h1:mt-0 prose-h1:mb-4 prose-h1:pb-2 prose-h1:border-b prose-h1:border-zinc-800
-                  prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-3
-                  prose-h3:text-lg prose-h3:mt-6 prose-h3:mb-2
-                  prose-p:text-zinc-300 prose-p:leading-relaxed
-                  prose-li:text-zinc-300 prose-li:my-1
-                  prose-a:text-red-400 prose-a:no-underline hover:prose-a:underline prose-a:break-words
-                  prose-strong:text-zinc-100
-                  prose-blockquote:border-l-2 prose-blockquote:border-red-500/60 prose-blockquote:bg-zinc-800/30 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r prose-blockquote:text-zinc-300 prose-blockquote:not-italic
-                  prose-hr:border-zinc-800
-                  prose-code:text-rose-300 prose-code:bg-zinc-800/70 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-code:font-normal
-                  prose-pre:bg-zinc-950 prose-pre:border prose-pre:border-zinc-800 prose-pre:rounded-lg prose-pre:overflow-x-auto
-                  prose-table:text-sm prose-th:text-zinc-200 prose-td:text-zinc-300 prose-th:border-zinc-700 prose-td:border-zinc-800"
+        {/* Tabs + toolbar */}
+        <div className="sticky top-1 z-10 flex flex-wrap items-center gap-1 px-3 sm:px-5 py-2 bg-zinc-900/95 backdrop-blur border-b border-zinc-800">
+          <nav className="flex flex-wrap gap-0.5">
+            {tabs
+              .filter((t) => t.show)
+              .map((t) => {
+                const active = tab === t.id;
+                return (
+                  <button
+                    key={t.id}
+                    onClick={() => setTab(t.id)}
+                    className={`text-xs px-3 py-1.5 rounded-md transition-colors ${
+                      active
+                        ? "bg-zinc-800 text-white"
+                        : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900"
+                    }`}
+                  >
+                    {t.label}
+                    {typeof t.count === "number" && (
+                      <span
+                        className={`ml-1.5 text-[10px] px-1.5 py-0.5 rounded ${
+                          active
+                            ? "bg-zinc-700 text-zinc-200"
+                            : "bg-zinc-800 text-zinc-500"
+                        }`}
+                      >
+                        {t.count}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+          </nav>
+          <div className="ml-auto flex items-center gap-1">
+            {tab === "transcript" && record.transcript && (
+              <button
+                onClick={handleCopyTranscript}
+                className="text-xs px-2.5 py-1 rounded-md border border-zinc-700 text-zinc-300 hover:bg-zinc-800"
               >
+                {copyState === "copied" ? "Copied ✓" : "Copy transcript"}
+              </button>
+            )}
+            <button
+              onClick={handleCopyMarkdown}
+              className="text-xs px-2.5 py-1 rounded-md border border-zinc-700 text-zinc-300 hover:bg-zinc-800"
+              title="Copy raw markdown"
+            >
+              Copy MD
+            </button>
+            <button
+              onClick={handleDownload}
+              className="text-xs px-2.5 py-1 rounded-md border border-zinc-700 text-zinc-300 hover:bg-zinc-800"
+            >
+              Download
+            </button>
+          </div>
+        </div>
+
+        {/* Body */}
+        <div className="p-5 sm:p-7">
+          {tab === "overview" && (
+            <OverviewTab
+              meta={meta}
+              summaryExtras={summaryExtras}
+              description={description}
+              externalLinks={externalLinks}
+              sponsors={sponsors}
+              hasChapters={chapters.length > 0}
+              onJumpToChapters={() => setTab("chapters")}
+            />
+          )}
+          {tab === "chapters" && (
+            <ChaptersTab chapters={chapters} videoId={meta.video_id} />
+          )}
+          {tab === "transcript" && (
+            <TranscriptTab text={record.transcript} />
+          )}
+          {tab === "raw" && (
+            <pre className="text-xs sm:text-sm text-zinc-300 bg-zinc-950 border border-zinc-800 rounded-lg p-4 overflow-x-auto whitespace-pre-wrap break-words font-mono leading-relaxed">
+              {state.content}
+            </pre>
+          )}
+        </div>
+      </article>
+    </div>
+  );
+}
+
+/* ----------------------------- Tab: Overview ----------------------------- */
+
+interface OverviewProps {
+  meta: ParsedRecord["meta"];
+  summaryExtras: ParsedRecord["summaryExtras"];
+  description: string;
+  externalLinks: ParsedRecord["externalLinks"];
+  sponsors: string[];
+  hasChapters: boolean;
+  onJumpToChapters: () => void;
+}
+
+function OverviewTab({
+  meta,
+  summaryExtras,
+  description,
+  externalLinks,
+  sponsors,
+  hasChapters,
+  onJumpToChapters,
+}: OverviewProps) {
+  const descParas = paragraphsFrom(description);
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      {/* Left: description + sponsors */}
+      <div className="lg:col-span-2 space-y-5 min-w-0">
+        {descParas.length > 0 && (
+          <Section title="Description">
+            <div
+              className="prose prose-invert prose-sm sm:prose-base max-w-none
+                prose-p:text-zinc-300 prose-p:leading-relaxed prose-p:my-2
+                prose-a:text-red-400 prose-a:no-underline hover:prose-a:underline prose-a:break-words"
+            >
+              {descParas.map((p, i) => (
                 <ReactMarkdown
+                  key={i}
                   remarkPlugins={[remarkGfm]}
                   components={{
-                    h1: renderHeading(1),
-                    h2: renderHeading(2),
-                    h3: renderHeading(3),
-                    h4: renderHeading(4),
-                    h5: renderHeading(5),
-                    h6: renderHeading(6),
                     a: ({ href, children, ...rest }) => (
                       <a
                         href={href}
@@ -560,48 +485,313 @@ export default function SubtitleViewer({ channel, filename }: Props) {
                     ),
                   }}
                 >
-                  {body}
+                  {p}
                 </ReactMarkdown>
-              </div>
-            ) : (
-              <pre className="text-xs sm:text-sm text-zinc-300 bg-zinc-950 border border-zinc-800 rounded-lg p-4 overflow-x-auto whitespace-pre-wrap break-words font-mono leading-relaxed">
-                {state.content}
-              </pre>
+              ))}
+            </div>
+          </Section>
+        )}
+
+        {hasChapters && (
+          <button
+            onClick={onJumpToChapters}
+            className="text-sm text-red-400 hover:text-red-300 inline-flex items-center gap-1"
+          >
+            View all chapters →
+          </button>
+        )}
+
+        {sponsors.length > 0 && (
+          <Section title="Sponsors" subtitle={`${sponsors.length} mentioned`}>
+            <ul className="space-y-2">
+              {sponsors.map((s, i) => (
+                <li
+                  key={i}
+                  className="rounded-md border border-zinc-800 bg-zinc-950/40 p-3 text-sm text-zinc-300 leading-relaxed"
+                >
+                  <LinkifiedText text={s} />
+                </li>
+              ))}
+            </ul>
+          </Section>
+        )}
+      </div>
+
+      {/* Right: metadata + links */}
+      <aside className="space-y-5 min-w-0">
+        {externalLinks.length > 0 && (
+          <Section title="Listen / Read elsewhere">
+            <ul className="space-y-1.5">
+              {externalLinks.map((link) => (
+                <li key={link.url}>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-between gap-2 px-3 py-2 rounded-md bg-zinc-950/60 border border-zinc-800 hover:border-zinc-600 transition-colors text-sm group"
+                  >
+                    <span className="text-zinc-200 truncate">{link.label}</span>
+                    <span className="text-[10px] text-zinc-500 group-hover:text-zinc-300">
+                      ↗
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </Section>
+        )}
+
+        <Section title="Metadata">
+          <dl className="text-xs divide-y divide-zinc-800 rounded-md border border-zinc-800 overflow-hidden">
+            {renderMetaRows(meta, summaryExtras)}
+          </dl>
+        </Section>
+      </aside>
+    </div>
+  );
+}
+
+function renderMetaRows(
+  meta: ParsedRecord["meta"],
+  summaryExtras: ParsedRecord["summaryExtras"]
+) {
+  const skip = new Set([
+    "title",
+    "video_url",
+    "video_id",
+    "channel_id",
+    "uploader_id",
+    "channel_name",
+    "duration_seconds",
+    "duration_human",
+    "view_count",
+    "like_count",
+    "language",
+    "published_at",
+    "upload_date",
+    "has_subtitle",
+  ]);
+  const rows: { key: string; value: string }[] = [];
+
+  // Identifiers first
+  if (meta.video_id) rows.push({ key: "video_id", value: meta.video_id });
+  if (meta.channel_id) rows.push({ key: "channel_id", value: meta.channel_id });
+  if (meta.uploader_id) rows.push({ key: "uploader_id", value: meta.uploader_id });
+
+  // Other frontmatter
+  for (const [key, value] of Object.entries(meta)) {
+    if (!value || skip.has(key)) continue;
+    if (key === "video_id" || key === "channel_id" || key === "uploader_id") continue;
+    rows.push({ key, value });
+  }
+
+  // Summary extras (uploader_url, tags, categories, ...)
+  for (const { key, value } of summaryExtras) {
+    rows.push({ key, value });
+  }
+
+  return rows.map(({ key, value }) => (
+    <div
+      key={key + value}
+      className="grid grid-cols-[110px_1fr] gap-2 px-3 py-1.5 bg-zinc-950/40"
+    >
+      <dt className="text-zinc-500 truncate">{pretty(key)}</dt>
+      <dd className="text-zinc-200 break-words min-w-0">
+        {isUrl(value) ? (
+          <a
+            href={value}
+            target="_blank"
+            rel="noreferrer"
+            className="text-red-400 hover:underline break-all"
+          >
+            {value.replace(/^https?:\/\//, "")}
+          </a>
+        ) : (
+          formatValue(key, value)
+        )}
+      </dd>
+    </div>
+  ));
+}
+
+function Section({
+  title,
+  subtitle,
+  children,
+}: {
+  title: string;
+  subtitle?: string;
+  children: ReactNode;
+}) {
+  return (
+    <section>
+      <div className="flex items-baseline justify-between mb-2">
+        <h3 className="text-xs font-semibold text-zinc-300 uppercase tracking-wider">
+          {title}
+        </h3>
+        {subtitle && <span className="text-[11px] text-zinc-500">{subtitle}</span>}
+      </div>
+      {children}
+    </section>
+  );
+}
+
+function LinkifiedText({ text }: { text: string }) {
+  const parts: ReactNode[] = [];
+  const regex = /(https?:\/\/[^\s)]+)/g;
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  let i = 0;
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+    parts.push(
+      <a
+        key={i++}
+        href={match[1]}
+        target="_blank"
+        rel="noreferrer"
+        className="text-red-400 hover:underline break-all"
+      >
+        {match[1].replace(/^https?:\/\//, "")}
+      </a>
+    );
+    lastIndex = match.index + match[1].length;
+  }
+  if (lastIndex < text.length) parts.push(text.slice(lastIndex));
+  return <>{parts}</>;
+}
+
+/* ----------------------------- Tab: Chapters ----------------------------- */
+
+function ChaptersTab({
+  chapters,
+  videoId,
+}: {
+  chapters: Chapter[];
+  videoId?: string;
+}) {
+  if (chapters.length === 0) {
+    return (
+      <div className="text-center py-12 text-zinc-500 text-sm">
+        No chapters found in this episode.
+      </div>
+    );
+  }
+  return (
+    <ol className="divide-y divide-zinc-800 rounded-md border border-zinc-800 overflow-hidden">
+      {chapters.map((chapter, i) => {
+        const link = videoId
+          ? `https://www.youtube.com/watch?v=${videoId}&t=${chapter.seconds}s`
+          : null;
+        const Inner = (
+          <div className="flex items-center gap-3 px-4 py-2.5 hover:bg-zinc-800/50 transition-colors">
+            <span className="text-[11px] font-mono text-zinc-500 bg-zinc-900 border border-zinc-800 rounded px-1.5 py-0.5 w-20 text-center flex-shrink-0">
+              {chapter.time}
+            </span>
+            <span className="text-sm text-zinc-200 flex-1 min-w-0">
+              {chapter.label}
+            </span>
+            {link && (
+              <span className="text-[10px] text-zinc-500 group-hover:text-zinc-300">
+                ↗
+              </span>
             )}
           </div>
-        </article>
+        );
+        return (
+          <li key={i} className="bg-zinc-950/40">
+            {link ? (
+              <a
+                href={link}
+                target="_blank"
+                rel="noreferrer"
+                className="block group"
+              >
+                {Inner}
+              </a>
+            ) : (
+              Inner
+            )}
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
 
-        {/* TOC sidebar */}
-        {tocOpen && headings.length > 0 && viewMode === "rendered" && (
-          <aside className="hidden lg:block w-60 flex-shrink-0 sticky top-4 self-start max-h-[calc(100vh-2rem)] overflow-y-auto pr-1">
-            <div className="text-[11px] uppercase tracking-wider text-zinc-500 font-semibold mb-2 px-2">
-              On this page
-            </div>
-            <nav className="space-y-0.5">
-              {headings.map((h) => {
-                const indent = Math.min(h.level - 1, 3) * 12;
-                const isActive = activeId === h.id;
-                return (
-                  <a
-                    key={h.id}
-                    href={`#${h.id}`}
-                    onClick={(e) => handleTocClick(e, h.id)}
-                    style={{ paddingLeft: 8 + indent }}
-                    className={`block text-xs py-1 pr-2 rounded border-l-2 transition-colors truncate ${
-                      isActive
-                        ? "border-red-500 text-white bg-zinc-800/60"
-                        : "border-transparent text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900"
-                    }`}
-                    title={h.text}
-                  >
-                    {h.text}
-                  </a>
-                );
-              })}
-            </nav>
-          </aside>
+/* ----------------------------- Tab: Transcript ----------------------------- */
+
+function TranscriptTab({ text }: { text: string }) {
+  const [query, setQuery] = useState("");
+  const paragraphs = useMemo(() => transcriptParagraphs(text), [text]);
+
+  const filtered = useMemo(() => {
+    if (!query.trim()) return paragraphs;
+    const q = query.toLowerCase();
+    return paragraphs.filter((p) => p.toLowerCase().includes(q));
+  }, [paragraphs, query]);
+
+  if (paragraphs.length === 0) {
+    return (
+      <div className="text-center py-12 text-zinc-500 text-sm">
+        No transcript available.
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="relative">
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search inside transcript…"
+          className="w-full bg-zinc-950 border border-zinc-800 rounded-md px-3 py-2 text-sm text-zinc-200 placeholder:text-zinc-600 focus:outline-none focus:border-zinc-600"
+        />
+        {query && (
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-zinc-500">
+            {filtered.length} / {paragraphs.length}
+          </span>
+        )}
+      </div>
+      <div className="prose prose-invert prose-sm sm:prose-base max-w-none prose-p:text-zinc-300 prose-p:leading-relaxed">
+        {filtered.map((p, i) => (
+          <p key={i}>{highlight(p, query)}</p>
+        ))}
+        {filtered.length === 0 && (
+          <p className="text-zinc-500 text-sm">No matches.</p>
         )}
       </div>
     </div>
   );
+}
+
+function highlight(text: string, query: string): ReactNode {
+  if (!query.trim()) return text;
+  const q = query.trim();
+  const lower = text.toLowerCase();
+  const ql = q.toLowerCase();
+  const out: ReactNode[] = [];
+  let i = 0;
+  let key = 0;
+  while (i < text.length) {
+    const idx = lower.indexOf(ql, i);
+    if (idx === -1) {
+      out.push(text.slice(i));
+      break;
+    }
+    if (idx > i) out.push(text.slice(i, idx));
+    out.push(
+      <mark
+        key={key++}
+        className="bg-yellow-500/30 text-yellow-200 rounded px-0.5"
+      >
+        {text.slice(idx, idx + q.length)}
+      </mark>
+    );
+    i = idx + q.length;
+  }
+  return <>{out}</>;
 }
