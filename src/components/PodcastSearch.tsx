@@ -370,12 +370,12 @@ export default function PodcastSearch() {
           )}
 
           {!loadingTop && !topError && (
-            <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            <ul className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2">
               {topPodcasts.map((podcast, index) => (
                 <li key={podcast.id}>
                   <button
                     onClick={() => setSelectedPodcast(podcast)}
-                    className="w-full text-left rounded-lg overflow-hidden border border-zinc-800 bg-zinc-900/40 hover:border-zinc-700 hover:bg-zinc-900 transition-colors"
+                    className="w-full text-left rounded-md overflow-hidden border border-zinc-800 bg-zinc-900/40 hover:border-zinc-700 hover:bg-zinc-900 transition-colors"
                   >
                     <div className="relative aspect-square bg-zinc-800">
                       {podcast.artworkUrl && (
@@ -386,22 +386,17 @@ export default function PodcastSearch() {
                           className="w-full h-full object-cover"
                         />
                       )}
-                      <span className="absolute top-2 left-2 bg-black/70 text-white text-xs font-bold px-2 py-0.5 rounded">
+                      <span className="absolute top-1 left-1 bg-black/70 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
                         #{index + 1}
                       </span>
                     </div>
-                    <div className="p-3">
-                      <div className="text-white text-sm font-medium line-clamp-2">
+                    <div className="p-2">
+                      <div className="text-white text-xs font-medium line-clamp-2 leading-snug">
                         {podcast.title}
                       </div>
-                      <div className="text-xs text-zinc-400 truncate mt-1">
+                      <div className="text-[11px] text-zinc-400 truncate mt-0.5">
                         {podcast.author}
                       </div>
-                      {podcast.genre && (
-                        <div className="text-xs text-zinc-500 mt-1">
-                          {podcast.genre}
-                        </div>
-                      )}
                     </div>
                   </button>
                 </li>
@@ -411,31 +406,31 @@ export default function PodcastSearch() {
         </div>
       )}
 
-      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
         {results.map((podcast) => (
           <li key={podcast.id}>
             <button
               onClick={() => setSelectedPodcast(podcast)}
-              className="w-full text-left flex gap-3 p-3 rounded-lg border border-zinc-800 bg-zinc-900/40 hover:border-zinc-700 hover:bg-zinc-900 transition-colors"
+              className="w-full text-left flex gap-2.5 p-2 rounded-md border border-zinc-800 bg-zinc-900/40 hover:border-zinc-700 hover:bg-zinc-900 transition-colors"
             >
               {podcast.artworkUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={podcast.artworkUrl}
                   alt={podcast.title}
-                  className="w-16 h-16 rounded object-cover flex-shrink-0"
+                  className="w-12 h-12 rounded object-cover flex-shrink-0"
                 />
               ) : (
-                <div className="w-16 h-16 rounded bg-zinc-800 flex-shrink-0" />
+                <div className="w-12 h-12 rounded bg-zinc-800 flex-shrink-0" />
               )}
               <div className="min-w-0 flex-1">
-                <div className="text-white font-medium truncate">
+                <div className="text-white text-sm font-medium truncate">
                   {podcast.title}
                 </div>
-                <div className="text-sm text-zinc-400 truncate">
+                <div className="text-xs text-zinc-400 truncate">
                   {podcast.author}
                 </div>
-                <div className="text-xs text-zinc-500 mt-1 flex gap-2">
+                <div className="text-[11px] text-zinc-500 mt-0.5 flex gap-1.5">
                   {podcast.genre && <span>{podcast.genre}</span>}
                   {podcast.episodeCount !== null && (
                     <span>· {podcast.episodeCount} eps</span>
