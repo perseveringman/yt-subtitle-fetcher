@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# YT Archive Fetcher
 
-## Getting Started
+A small Next.js app that archives YouTube videos into agent-friendly Markdown files.
 
-First, run the development server:
+## What it supports
+
+- Batch archiving from a YouTube channel URL or `@handle`
+- Batch archiving from a YouTube playlist URL
+- Single-video archiving from normal YouTube links, `youtu.be` links, Shorts, and Live URLs
+- Subtitle download when available
+- Metadata + comment capture via `yt-dlp`
+- Cached batch manifests with missing-item retry
+- Persistent task history and stage-by-stage progress
+- Parallel video downloads with a bounded worker pool
+
+## How the archive is stored
+
+Each video is written to `data/<channel>/...md`.
+
+For batch sources, the app also writes a cached manifest file next to the Markdown archives. The manifest stores the full expected video list, status per video, retry attempts, and the last failure message when a video could not be archived.
+
+Task snapshots are also persisted to `data/.tasks.json`, so the task list survives page refreshes and process restarts.
+
+The Markdown format is designed for downstream agent analysis:
+
+- YAML frontmatter stores normalized scalar fields plus preserved raw payloads:
+  - `metadata_json`
+  - `comments_json`
+- The body contains readable sections:
+  - `## Video Summary`
+  - `## Description`
+  - `## Transcript`
+  - `## Comments`
+- Comment boundaries are marked with:
+  - `<!-- YOUTUBE_COMMENTS_START -->`
+  - `<!-- YOUTUBE_COMMENTS_END -->`
+
+Even if subtitles are missing, the app still writes a Markdown record so metadata and comments are preserved.
+
+## Batch retry behavior
+
+For channel and playlist jobs:
+
+- the full list is cached before download begins
+- the first download pass runs against that cached list
+- any videos still missing after the first pass are retried once automatically
+- the UI shows the full list, marks missing items clearly, and offers a batch retry button for remaining gaps
+
+## Task execution model
+
+- each task exposes explicit stages such as source resolution, manifest caching, initial pass, retry pass, and finalization
+- the current active stage shows its own progress bar and live running downloads
+- interrupted in-flight tasks are restored as errored tasks on startup instead of being shown as still running
+- batch video downloads run in parallel with a fixed concurrency limit
+
+## Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Requirements
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `yt-dlp` available in `PATH`
+- Chrome cookies available locally, since the app currently uses `--cookies-from-browser chrome`

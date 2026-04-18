@@ -1,0 +1,1025 @@
+{
+  "version": 1,
+  "channelName": "PLd7-bHaQwnthaNDpZ32TtYONGVk95-fhF",
+  "sourceType": "playlist",
+  "sourceUrl": "https://www.youtube.com/playlist?list=PLd7-bHaQwnthaNDpZ32TtYONGVk95-fhF",
+  "updatedAt": "2026-04-18T14:19:44.950Z",
+  "videos": [
+    {
+      "id": "Hrbq66XqtCo",
+      "title": "Jensen Huang – Will Nvidia’s moat persist?",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "Jensen Huang – Will Nvidia’s moat persist_ (Hrbq66XqtCo).md"
+    },
+    {
+      "id": "myP8UjAM1pk",
+      "title": "Michael Nielsen – Why aliens will have a different tech stack than us",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "Michael Nielsen – Why aliens will have a different tech stack than us (myP8UjAM1pk).md"
+    },
+    {
+      "id": "Q8Fkpi18QXU",
+      "title": "Terence Tao – How the world’s top mathematician uses AI",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "Terence Tao – How the world’s top mathematician uses AI (Q8Fkpi18QXU).md"
+    },
+    {
+      "id": "ztcKyI8_w6k",
+      "title": "[Private video]",
+      "status": "unavailable",
+      "hasSubtitle": false,
+      "attempts": 7,
+      "lastError": "ERROR: [youtube] ztcKyI8_w6k: Video unavailable. This video has been removed by the uploader"
+    },
+    {
+      "id": "iOwRagW9tag",
+      "title": "[Private video]",
+      "status": "unavailable",
+      "hasSubtitle": false,
+      "attempts": 7,
+      "lastError": "ERROR: [youtube] iOwRagW9tag: Video unavailable. This video has been removed by the uploader"
+    },
+    {
+      "id": "mDG_Hx3BSUE",
+      "title": "Dylan Patel — The single biggest bottleneck to scaling AI compute",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "Dylan Patel — The single biggest bottleneck to scaling AI compute (mDG_Hx3BSUE).md"
+    },
+    {
+      "id": "PAIhVfGbREA",
+      "title": "Why Leonardo was a saboteur, Gutenberg went broke, and Florence was weird – Ada Palmer",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "Why Leonardo was a saboteur, Gutenberg went broke, and Florence was weird – Ada Palmer (PAIhVfGbREA).md"
+    },
+    {
+      "id": "n1E9IZfvGMA",
+      "title": "Dario Amodei — “We are near the end of the exponential”",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "Dario Amodei — “We are near the end of the exponential” (n1E9IZfvGMA).md"
+    },
+    {
+      "id": "BYXbuik3dgA",
+      "title": "Elon Musk – \"In 36 months, the cheapest place to put AI will be space”",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "Elon Musk – _In 36 months, the cheapest place to put AI will be space” (BYXbuik3dgA).md"
+    },
+    {
+      "id": "_9V_Hbe-N1A",
+      "title": "Adam Marblestone – AI is missing something fundamental about the brain",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "Adam Marblestone – AI is missing something fundamental about the brain (_9V_Hbe-N1A).md"
+    },
+    {
+      "id": "FdkpWrlR5zg",
+      "title": "Sarah Paine – Why Russia Lost the Cold War",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "Sarah Paine – Why Russia Lost the Cold War (FdkpWrlR5zg).md"
+    },
+    {
+      "id": "aR20FWCCjAs",
+      "title": "Ilya Sutskever – We're moving from the age of scaling to the age of research",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "Ilya Sutskever – We're moving from the age of scaling to the age of research (aR20FWCCjAs).md"
+    },
+    {
+      "id": "8-boBsWcr5A",
+      "title": "Satya Nadella – How Microsoft thinks about AGI",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "Satya Nadella – How Microsoft thinks about AGI (8-boBsWcr5A).md"
+    },
+    {
+      "id": "RH_ycZYH8-s",
+      "title": "Sarah Paine — How Russia sabotaged China's rise",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 11,
+      "filename": "Sarah Paine — How Russia sabotaged China's rise (RH_ycZYH8-s).md"
+    },
+    {
+      "id": "lXUZvyajciY",
+      "title": "Andrej Karpathy — “We’re summoning ghosts, not building animals”",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "Andrej Karpathy — “We’re summoning ghosts, not building animals” (lXUZvyajciY).md"
+    },
+    {
+      "id": "0GMWxuYuxJI",
+      "title": "“I find it almost disturbing that the universe favors life this strongly” – Nick Lane",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "“I find it almost disturbing that the universe favors life this strongly” – Nick Lane (0GMWxuYuxJI).md"
+    },
+    {
+      "id": "21EYKqUsPfg",
+      "title": "Richard Sutton – Father of RL thinks LLMs are a dead end",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 7,
+      "filename": "Richard Sutton – Father of RL thinks LLMs are a dead end (21EYKqUsPfg).md"
+    },
+    {
+      "id": "48pxVdmkMIE",
+      "title": "Fully autonomous robots are much closer than you think – Sergey Levine",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "Fully autonomous robots are much closer than you think – Sergey Levine (48pxVdmkMIE).md"
+    },
+    {
+      "id": "SdMgOXfSBQw",
+      "title": "Sarah Paine – How Hitler almost starved Britain",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 3,
+      "filename": "Sarah Paine – How Hitler almost starved Britain (SdMgOXfSBQw).md"
+    },
+    {
+      "id": "XCLODgdCmKA",
+      "title": "Evolution designed us to die fast; we can change that — Jacob Kimmel",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "Evolution designed us to die fast; we can change that — Jacob Kimmel (XCLODgdCmKA).md"
+    },
+    {
+      "id": "3cDHx2_QbPE",
+      "title": "China is killing the US on energy. Does that mean they’ll win AGI? — Casey Handmer",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 3,
+      "filename": "China is killing the US on energy. Does that mean they’ll win AGI_ — Casey Handmer (3cDHx2_QbPE).md"
+    },
+    {
+      "id": "kWcPg8t1kJ4",
+      "title": "Artificial meat is harder than artificial intelligence — Lewis Bollard",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Artificial meat is harder than artificial intelligence — Lewis Bollard (kWcPg8t1kJ4).md"
+    },
+    {
+      "id": "KxIeJjEGLdo",
+      "title": "Sarah Paine — How Imperial Japan defeated Tsarist Russia & Qing China",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Sarah Paine — How Imperial Japan defeated Tsarist Russia & Qing China (KxIeJjEGLdo).md"
+    },
+    {
+      "id": "YMfd3EoHfPI",
+      "title": "Stephen Kotkin — How Stalin became the most powerful dictator in history",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Stephen Kotkin — How Stalin became the most powerful dictator in history (YMfd3EoHfPI).md"
+    },
+    {
+      "id": "olmHHxFQwxo",
+      "title": "A billion years of evolution in a single afternoon — George Church",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "A billion years of evolution in a single afternoon — George Church (olmHHxFQwxo).md"
+    },
+    {
+      "id": "qb644F-iE_s",
+      "title": "Why China's manufacturing economy is dominating — Arthur Kroeber",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Why China's manufacturing economy is dominating — Arthur Kroeber (qb644F-iE_s).md"
+    },
+    {
+      "id": "P2b4TjQa4gk",
+      "title": "\"China is digging out of a crisis. And America’s luck is wearing thin.\" — Ken Rogoff",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "_China is digging out of a crisis. And America’s luck is wearing thin._ — Ken Rogoff (P2b4TjQa4gk).md"
+    },
+    {
+      "id": "b1TeeIG6Uaw",
+      "title": "Xi Jinping’s paranoid approach to AGI, debt crisis, & Politburo politics — Victor Shih",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Xi Jinping’s paranoid approach to AGI, debt crisis, & Politburo politics — Victor Shih (b1TeeIG6Uaw).md"
+    },
+    {
+      "id": "64lXQP6cs5M",
+      "title": "Is RL + LLMs enough for AGI? — Sholto Douglas & Trenton Bricken",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Is RL + LLMs enough for AGI_ — Sholto Douglas & Trenton Bricken (64lXQP6cs5M).md"
+    },
+    {
+      "id": "rYXeQbTuVl0",
+      "title": "Mark Zuckerberg — AI will write most Meta code in 18 months",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Mark Zuckerberg — AI will write most Meta code in 18 months (rYXeQbTuVl0).md"
+    },
+    {
+      "id": "QFzgSmN8Ng8",
+      "title": "Why Rome actually fell: plagues, slavery, & ice age — Kyle Harper",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Why Rome actually fell_ plagues, slavery, & ice age — Kyle Harper (QFzgSmN8Ng8).md"
+    },
+    {
+      "id": "WLBsUarvWTw",
+      "title": "AGI is still 30 years away — Ege Erdil & Tamay Besiroglu",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "AGI is still 30 years away — Ege Erdil & Tamay Besiroglu (WLBsUarvWTw).md"
+    },
+    {
+      "id": "htOvH12T7mU",
+      "title": "AI 2027: month-by-month model of intelligence explosion — Scott Alexander & Daniel Kokotajlo",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "AI 2027_ month-by-month model of intelligence explosion — Scott Alexander & Daniel Kokotajlo (htOvH12T7mU).md"
+    },
+    {
+      "id": "XLaRfZ4AHn8",
+      "title": "AMA: career advice given AGI, how I research ft. Sholto & Trenton",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "AMA_ career advice given AGI, how I research ft. Sholto & Trenton (XLaRfZ4AHn8).md"
+    },
+    {
+      "id": "TcfhrThp1OU",
+      "title": "Joseph Henrich — Humans defeated smarter species with cultural evolution",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Joseph Henrich — Humans defeated smarter species with cultural evolution (TcfhrThp1OU).md"
+    },
+    {
+      "id": "4GLSzuYXh6w",
+      "title": "Satya Nadella — Microsoft’s AGI plan & quantum breakthrough",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Satya Nadella — Microsoft’s AGI plan & quantum breakthrough (4GLSzuYXh6w).md"
+    },
+    {
+      "id": "v0gjI__RyCY",
+      "title": "Jeff Dean & Noam Shazeer — 25 years at Google: from PageRank to AGI",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Jeff Dean & Noam Shazeer — 25 years at Google_ from PageRank to AGI (v0gjI__RyCY).md"
+    },
+    {
+      "id": "4l3Sa8ImGFQ",
+      "title": "Sarah Paine — How Mao conquered China (lecture & interview)",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Sarah Paine — How Mao conquered China (lecture & interview) (4l3Sa8ImGFQ).md"
+    },
+    {
+      "id": "Znk5QINe01A",
+      "title": "Sarah Paine — Why Japan lost WWII (lecture & interview)",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Sarah Paine — Why Japan lost WWII (lecture & interview) (Znk5QINe01A).md"
+    },
+    {
+      "id": "LbkO84MsmyM",
+      "title": "Sarah Paine — The war for India (lecture & interview)",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Sarah Paine — The war for India (lecture & interview) (LbkO84MsmyM).md"
+    },
+    {
+      "id": "GT_sXIUJPUo",
+      "title": "Tyler Cowen — The #1 bottleneck to AI progress is humans",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Tyler Cowen — The #1 bottleneck to AI progress is humans (GT_sXIUJPUo).md"
+    },
+    {
+      "id": "XhB3qH_TFds",
+      "title": "Adam Brown — Bubble universes, space elevators, & AdS/CFT",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Adam Brown — Bubble universes, space elevators, & AdS_CFT (XhB3qH_TFds).md"
+    },
+    {
+      "id": "a42key59cZQ",
+      "title": "Gwern — Anonymous writer who predicted AI trajectory on $12K/year salary",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Gwern — Anonymous writer who predicted AI trajectory on $12K_year salary (a42key59cZQ).md"
+    },
+    {
+      "id": "pE3KKUKXcTM",
+      "title": "@Asianometry & Dylan Patel — How the semiconductor industry actually works",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "@Asianometry & Dylan Patel — How the semiconductor industry actually works (pE3KKUKXcTM).md"
+    },
+    {
+      "id": "sveBcfz0fHk",
+      "title": "Daniel Yergin — Oil destroyed Hitler, fracking destroyed Putin",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Daniel Yergin — Oil destroyed Hitler, fracking destroyed Putin (sveBcfz0fHk).md"
+    },
+    {
+      "id": "Uj6skZIxPuI",
+      "title": "David Reich — How one small tribe conquered the world 70,000 years ago",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "David Reich — How one small tribe conquered the world 70,000 years ago (Uj6skZIxPuI).md"
+    },
+    {
+      "id": "5XsL_7TnfLU",
+      "title": "Joe Carlsmith — Preventing an AI takeover",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Joe Carlsmith — Preventing an AI takeover (5XsL_7TnfLU).md"
+    },
+    {
+      "id": "18zpjpPNWRw",
+      "title": "Patrick McKenzie — Money laundering, big tech censorship, SBF & Japan",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Patrick McKenzie — Money laundering, big tech censorship, SBF & Japan (18zpjpPNWRw).md"
+    },
+    {
+      "id": "zSLWR3AbF3c",
+      "title": "Tony Blair — Why political leaders keep failing at major change",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Tony Blair — Why political leaders keep failing at major change (zSLWR3AbF3c).md"
+    },
+    {
+      "id": "UakqL6Pj9xo",
+      "title": "Francois Chollet — Why the biggest AI models can't solve simple puzzles",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Francois Chollet — Why the biggest AI models can't solve simple puzzles (UakqL6Pj9xo).md"
+    },
+    {
+      "id": "zdbVtZIn9IM",
+      "title": "Leopold Aschenbrenner — 2027 AGI, China/US super-intelligence race, & the return of history",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Leopold Aschenbrenner — 2027 AGI, China_US super-intelligence race, & the return of history (zdbVtZIn9IM).md"
+    },
+    {
+      "id": "Wo95ob_s_NI",
+      "title": "John Schulman (OpenAI Cofounder) — Reasoning, RLHF, & plan for 2027 AGI",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "John Schulman (OpenAI Cofounder) — Reasoning, RLHF, & plan for 2027 AGI (Wo95ob_s_NI).md"
+    },
+    {
+      "id": "bc6uFV9CJGg",
+      "title": "Mark Zuckerberg — Llama 3, $10B models, Caesar Augustus, & 1 GW datacenters",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Mark Zuckerberg — Llama 3, $10B models, Caesar Augustus, & 1 GW datacenters (bc6uFV9CJGg).md"
+    },
+    {
+      "id": "UTuuTTnjxMQ",
+      "title": "Sholto Douglas & Trenton Bricken — How LLMs actually think",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Sholto Douglas & Trenton Bricken — How LLMs actually think (UTuuTTnjxMQ).md"
+    },
+    {
+      "id": "qTogNUV3CAI",
+      "title": "Demis Hassabis — Scaling, superhuman AIs, AlphaZero atop LLMs, AlphaFold",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Demis Hassabis — Scaling, superhuman AIs, AlphaZero atop LLMs, AlphaFold (qTogNUV3CAI).md"
+    },
+    {
+      "id": "WU-lBOAS1VQ",
+      "title": "Patrick Collison — Why Silicon Valley's most talented should leave",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Patrick Collison — Why Silicon Valley's most talented should leave (WU-lBOAS1VQ).md"
+    },
+    {
+      "id": "EY2nbAVZB-k",
+      "title": "Tyler Cowen — Hayek, Keynes, & Smith on AI, animal spirits, anarchy, & growth",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Tyler Cowen — Hayek, Keynes, & Smith on AI, animal spirits, anarchy, & growth (EY2nbAVZB-k).md"
+    },
+    {
+      "id": "-VeZp2d7mDs",
+      "title": "Jung Chang (Wild Swans author) — Living through history's largest man-made famine",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Jung Chang (Wild Swans author) — Living through history's largest man-made famine (-VeZp2d7mDs).md"
+    },
+    {
+      "id": "tM9ZMYUYhTk",
+      "title": "Andrew Roberts — Why Hitler lost WWII, Churchill as applied historian, & Napoleon as startup founder",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Andrew Roberts — Why Hitler lost WWII, Churchill as applied historian, & Napoleon as startup founder (tM9ZMYUYhTk).md"
+    },
+    {
+      "id": "3i7ym_Qh7BA",
+      "title": "Dominic Cummings — Inside the collapse of western government",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Dominic Cummings — Inside the collapse of western government (3i7ym_Qh7BA).md"
+    },
+    {
+      "id": "9AAhTLa0dT0",
+      "title": "Paul Christiano — Preventing an AI takeover",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Paul Christiano — Preventing an AI takeover (9AAhTLa0dT0).md"
+    },
+    {
+      "id": "Kc1atfJkiJU",
+      "title": "Shane Legg (DeepMind Founder) — 2028 AGI, superhuman alignment, new architectures",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Shane Legg (DeepMind Founder) — 2028 AGI, superhuman alignment, new architectures (Kc1atfJkiJU).md"
+    },
+    {
+      "id": "oDyviiN4NVo",
+      "title": "Grant Sanderson (@3blue1brown) — Past, present, & future of mathematics",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Grant Sanderson (@3blue1brown) — Past, present, & future of mathematics (oDyviiN4NVo).md"
+    },
+    {
+      "id": "YcVSgYz5SJ8",
+      "title": "Sarah C. M. Paine — Why dictators keep making the same fatal mistake",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Sarah C. M. Paine — Why dictators keep making the same fatal mistake (YcVSgYz5SJ8).md"
+    },
+    {
+      "id": "6yQEA18C-XI",
+      "title": "George Hotz vs Eliezer Yudkowsky",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "George Hotz vs Eliezer Yudkowsky (6yQEA18C-XI).md"
+    },
+    {
+      "id": "Nlkk3glap_U",
+      "title": "Dario Amodei (Anthropic CEO) — The hidden pattern behind every AI breakthrough",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Dario Amodei (Anthropic CEO) — The hidden pattern behind every AI breakthrough (Nlkk3glap_U).md"
+    },
+    {
+      "id": "dmeRQN9z504",
+      "title": "Andy Matuschak — The reason most learning tools fail",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Andy Matuschak — The reason most learning tools fail (dmeRQN9z504).md"
+    },
+    {
+      "id": "KUieFuV1fuo",
+      "title": "Carl Shulman (Pt 2) — AI Takeover, bio & cyber attacks, detecting deception, & humanity's far future",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Carl Shulman (Pt 2) — AI Takeover, bio & cyber attacks, detecting deception, & humanity's far future (KUieFuV1fuo).md"
+    },
+    {
+      "id": "_kRg-ZP1vQc",
+      "title": "Carl Shulman (Pt 1) — Intelligence explosion, primate evolution, robot doublings, & alignment",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Carl Shulman (Pt 1) — Intelligence explosion, primate evolution, robot doublings, & alignment (_kRg-ZP1vQc).md"
+    },
+    {
+      "id": "tMdMiYsfHKo",
+      "title": "Richard Rhodes — The making of the atomic bomb",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Richard Rhodes — The making of the atomic bomb (tMdMiYsfHKo).md"
+    },
+    {
+      "id": "41SUp-TRVlg",
+      "title": "Eliezer Yudkowsky — Why AI will kill us, aligning LLMs, nature of intelligence, SciFi, & rationality",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Eliezer Yudkowsky — Why AI will kill us, aligning LLMs, nature of intelligence, SciFi, & rationality (41SUp-TRVlg).md"
+    },
+    {
+      "id": "Yf1o0TQzry8",
+      "title": "Ilya Sutskever (OpenAI Chief Scientist) — Why next-token prediction could surpass human intelligence",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Ilya Sutskever (OpenAI Chief Scientist) — Why next-token prediction could surpass human intelligence (Yf1o0TQzry8).md"
+    },
+    {
+      "id": "qcvMjoJdck4",
+      "title": "Nat Friedman (Github CEO) — Reading ancient scrolls, open source, & AI",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Nat Friedman (Github CEO) — Reading ancient scrolls, open source, & AI (qcvMjoJdck4).md"
+    },
+    {
+      "id": "yXgDlIlB93A",
+      "title": "Brett Harrison — FTX US former president speaks out",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Brett Harrison — FTX US former president speaks out (yXgDlIlB93A).md"
+    },
+    {
+      "id": "kNsi5XVDTTM",
+      "title": "Marc Andreessen — AI, crypto, 1000 Elon Musks, regrets, vulnerabilities, & managerial revolution",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Marc Andreessen — AI, crypto, 1000 Elon Musks, regrets, vulnerabilities, & managerial revolution (kNsi5XVDTTM).md"
+    },
+    {
+      "id": "ZruyslAe26g",
+      "title": "Garett Jones — Immigration, national IQ, & less democracy",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Garett Jones — Immigration, national IQ, & less democracy (ZruyslAe26g).md"
+    },
+    {
+      "id": "sL-qkv7Pzxo",
+      "title": "Lars Doucet — Progress, poverty, Georgism, & why rent is too damn high",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Lars Doucet — Progress, poverty, Georgism, & why rent is too damn high (sL-qkv7Pzxo).md"
+    },
+    {
+      "id": "UckqpcOu5SY",
+      "title": "Holden Karnofsky — History's most important century",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Holden Karnofsky — History's most important century (UckqpcOu5SY).md"
+    },
+    {
+      "id": "KXbSOiqnQxQ",
+      "title": "[Private video]",
+      "status": "unavailable",
+      "hasSubtitle": false,
+      "attempts": 3,
+      "lastError": "ERROR: [youtube] KXbSOiqnQxQ: Video unavailable. This video is private"
+    },
+    {
+      "id": "m3oM69YHLeo",
+      "title": "Bethany McLean — Enron, FTX, 2008, Musk, frauds, & visionaries",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Bethany McLean — Enron, FTX, 2008, Musk, frauds, & visionaries (m3oM69YHLeo).md"
+    },
+    {
+      "id": "nvL3vqMzznY",
+      "title": "Nadia Asparouhova — Tech elites, democracy, open source, & philanthropy",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Nadia Asparouhova — Tech elites, democracy, open source, & philanthropy (nvL3vqMzznY).md"
+    },
+    {
+      "id": "UiuHjBvGGio",
+      "title": "[Private video]",
+      "status": "unavailable",
+      "hasSubtitle": false,
+      "attempts": 3,
+      "lastError": "ERROR: [youtube] UiuHjBvGGio: Video unavailable. This video is private"
+    },
+    {
+      "id": "9P2rk0Gtd0I",
+      "title": "Byrne Hobart - FTX, Drugs, Twitter, Taiwan, & Monasticism",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Byrne Hobart - FTX, Drugs, Twitter, Taiwan, & Monasticism (9P2rk0Gtd0I).md"
+    },
+    {
+      "id": "MpttoDJ3pH8",
+      "title": "Edward Glaeser - Cities, Terrorism, Housing, & Remote Work",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Edward Glaeser - Cities, Terrorism, Housing, & Remote Work (MpttoDJ3pH8).md"
+    },
+    {
+      "id": "Gumo8zmgLqM",
+      "title": "Kenneth T. Jackson - Robert Moses, Hero of New York?",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Kenneth T. Jackson - Robert Moses, Hero of New York_ (Gumo8zmgLqM).md"
+    },
+    {
+      "id": "m9ErXK5h-oU",
+      "title": "Brian Potter - Future of Construction, Ugly Modernism, & Environmental Review",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Brian Potter - Future of Construction, Ugly Modernism, & Environmental Review (m9ErXK5h-oU).md"
+    },
+    {
+      "id": "jmWmrx6ki9Q",
+      "title": "Bryan Caplan - Feminists, Billionaires, and Demagogues",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Bryan Caplan - Feminists, Billionaires, and Demagogues (jmWmrx6ki9Q).md"
+    },
+    {
+      "id": "AHkmEnl55jo",
+      "title": "Tyler Cowen - Why Society Will Collapse & Why Sex is Pessimistic",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Tyler Cowen - Why Society Will Collapse & Why Sex is Pessimistic (AHkmEnl55jo).md"
+    },
+    {
+      "id": "1Z35PqPQU2M",
+      "title": "Charles C. Mann - Americas Before Columbus & Scientific Wizardry",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Charles C. Mann - Americas Before Columbus & Scientific Wizardry (1Z35PqPQU2M).md"
+    },
+    {
+      "id": "YSgfu7XprIM",
+      "title": "Austin Vernon - Energy Superabundance, Starship Missiles, & Finding Alpha",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Austin Vernon - Energy Superabundance, Starship Missiles, & Finding Alpha (YSgfu7XprIM).md"
+    },
+    {
+      "id": "80BhjRh-Q-s",
+      "title": "Steve Hsu - Intelligence, Embryo Selection, & The Future of Humanity",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Steve Hsu - Intelligence, Embryo Selection, & The Future of Humanity (80BhjRh-Q-s).md"
+    },
+    {
+      "id": "SMEfl5maB8k",
+      "title": "Will MacAskill - Longtermism, Effective Altruism, History, & Technology",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Will MacAskill - Longtermism, Effective Altruism, History, & Technology (SMEfl5maB8k).md"
+    },
+    {
+      "id": "M3TUe4zUCKk",
+      "title": "Joseph Carlsmith - Utopia, AI, & Infinite Ethics",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Joseph Carlsmith - Utopia, AI, & Infinite Ethics (M3TUe4zUCKk).md"
+    },
+    {
+      "id": "snMWoyvmkhg",
+      "title": "Fin Moorhouse - Longtermism, Space, & Entrepreneurship",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Fin Moorhouse - Longtermism, Space, & Entrepreneurship (snMWoyvmkhg).md"
+    },
+    {
+      "id": "E65CHSV6Ads",
+      "title": "Alexander Mikaberidze - Napoleon, War, Progress, and Global Order",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Alexander Mikaberidze - Napoleon, War, Progress, and Global Order (E65CHSV6Ads).md"
+    },
+    {
+      "id": "5Af0d2DbK5w",
+      "title": "Sam Bankman-Fried - Crypto, FTX, Altruism, & Leadership",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Sam Bankman-Fried - Crypto, FTX, Altruism, & Leadership (5Af0d2DbK5w).md"
+    },
+    {
+      "id": "3BBNG0TlVwM",
+      "title": "Agustin Lebron - Trading, Crypto, and Adverse Selection",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Agustin Lebron - Trading, Crypto, and Adverse Selection (3BBNG0TlVwM).md"
+    },
+    {
+      "id": "FWhM6UpwNX4",
+      "title": "[Private video]",
+      "status": "unavailable",
+      "hasSubtitle": false,
+      "attempts": 3,
+      "lastError": "ERROR: [youtube] FWhM6UpwNX4: Video unavailable. This video is private"
+    },
+    {
+      "id": "SAAejSlrKWM",
+      "title": "[Private video]",
+      "status": "unavailable",
+      "hasSubtitle": false,
+      "attempts": 3,
+      "lastError": "ERROR: [youtube] SAAejSlrKWM: Video unavailable. This video is private"
+    },
+    {
+      "id": "faZI6OBOopE",
+      "title": "Ananyo Bhattacharya - John von Neumann, Jewish Genius, and Nuclear War",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Ananyo Bhattacharya - John von Neumann, Jewish Genius, and Nuclear War (faZI6OBOopE).md"
+    },
+    {
+      "id": "XoRXrnHg084",
+      "title": "Manifold Markets Founder - Predictions Markets & Revolutionizing Governance",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Manifold Markets Founder - Predictions Markets & Revolutionizing Governance (XoRXrnHg084).md"
+    },
+    {
+      "id": "rsJxlybPByM",
+      "title": "Pradyu Prasad - Imperial Japan, the God Emperor, and Militarization in the Modern World",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Pradyu Prasad - Imperial Japan, the God Emperor, and Militarization in the Modern World (rsJxlybPByM).md"
+    },
+    {
+      "id": "sh04dEtBAoE",
+      "title": "Razib Khan - Genomics, Intelligence, and The Church of Science",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Razib Khan - Genomics, Intelligence, and The Church of Science (sh04dEtBAoE).md"
+    },
+    {
+      "id": "OEcOUgXvz7g",
+      "title": "Jimmy Soni - Peter Thiel, Elon Musk, and the Paypal Mafia",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Jimmy Soni - Peter Thiel, Elon Musk, and the Paypal Mafia (OEcOUgXvz7g).md"
+    },
+    {
+      "id": "i70j-ZCPhXg",
+      "title": "Bryan Caplan - Labor Econ, Poverty, & Mental Illness",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Bryan Caplan - Labor Econ, Poverty, & Mental Illness (i70j-ZCPhXg).md"
+    },
+    {
+      "id": "QyWs-XomCk0",
+      "title": "Richard Hanania - Foreign Policy, Fertility, and Experts",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Richard Hanania - Foreign Policy, Fertility, and Experts (QyWs-XomCk0).md"
+    },
+    {
+      "id": "EVwjofV5TgU",
+      "title": "David Deutsch - AI, America, Fun, & Bayes",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "David Deutsch - AI, America, Fun, & Bayes (EVwjofV5TgU).md"
+    },
+    {
+      "id": "q_X13jNOQTk",
+      "title": "[Private video]",
+      "status": "unavailable",
+      "hasSubtitle": false,
+      "attempts": 3,
+      "lastError": "ERROR: [youtube] q_X13jNOQTk: Video unavailable. This video is private"
+    },
+    {
+      "id": "6221PKJLwQ8",
+      "title": "[Private video]",
+      "status": "unavailable",
+      "hasSubtitle": false,
+      "attempts": 3,
+      "lastError": "ERROR: [youtube] 6221PKJLwQ8: Video unavailable. This video is private"
+    },
+    {
+      "id": "ZI_tDsOhd5I",
+      "title": "Byrne Hobart - Optionality, Stagnation, and Secret Societies",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Byrne Hobart - Optionality, Stagnation, and Secret Societies (ZI_tDsOhd5I).md"
+    },
+    {
+      "id": "T7i8ThJhxh0",
+      "title": "[Private video]",
+      "status": "unavailable",
+      "hasSubtitle": false,
+      "attempts": 3,
+      "lastError": "ERROR: [youtube] T7i8ThJhxh0: Video unavailable. This video is private"
+    },
+    {
+      "id": "3svashDgB50",
+      "title": "David Friedman - Dating Markets, Legal Systems, Bitcoin, and Automation",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "David Friedman - Dating Markets, Legal Systems, Bitcoin, and Automation (3svashDgB50).md"
+    },
+    {
+      "id": "BV6Qice6Lrc",
+      "title": "Sarah Fitz-Claridge - Taking Children Seriously | The Lunar Society #15",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Sarah Fitz-Claridge - Taking Children Seriously _ The Lunar Society #15 (BV6Qice6Lrc).md"
+    },
+    {
+      "id": "--xKsIgv7tE",
+      "title": "Michael Huemer - Anarchy, Capitalism, and Progress",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Michael Huemer - Anarchy, Capitalism, and Progress (--xKsIgv7tE).md"
+    },
+    {
+      "id": "ldTPVd3vO9Q",
+      "title": "Uncle Bob - The Long Reach of Code, Automating Programming, and Developing Coding Talent",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Uncle Bob - The Long Reach of Code, Automating Programming, and Developing Coding Talent (ldTPVd3vO9Q).md"
+    },
+    {
+      "id": "Uy5fvwdw8x4",
+      "title": "Scott Aaronson - Quantum Computing, Complexity, and Creativity",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Scott Aaronson - Quantum Computing, Complexity, and Creativity (Uy5fvwdw8x4).md"
+    },
+    {
+      "id": "R5sBycV80c8",
+      "title": "Scott Young - Ultralearning, The MIT Challenge",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Scott Young - Ultralearning, The MIT Challenge (R5sBycV80c8).md"
+    },
+    {
+      "id": "yYtyKmPZBto",
+      "title": "Charles Murray - Human Accomplishment and the Future of Liberty | The Lunar Society #10",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Charles Murray - Human Accomplishment and the Future of Liberty _ The Lunar Society #10 (yYtyKmPZBto).md"
+    },
+    {
+      "id": "i75KvXVrtLw",
+      "title": "Alex Tabarrok - Prizes, Prices, and Public Goods",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Alex Tabarrok - Prizes, Prices, and Public Goods (i75KvXVrtLw).md"
+    },
+    {
+      "id": "Ayewh_O0LPQ",
+      "title": "Caleb Watney - America's Innovation Engine",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Caleb Watney - America's Innovation Engine (Ayewh_O0LPQ).md"
+    },
+    {
+      "id": "aagyRGKv66g",
+      "title": "Robin Hanson - The Long View and The Elephant in the Brain",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Robin Hanson - The Long View and The Elephant in the Brain (aagyRGKv66g).md"
+    },
+    {
+      "id": "otyrj5SnS4I",
+      "title": "Jason Crawford - The Roots of Progress & the History of Technology",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Jason Crawford - The Roots of Progress & the History of Technology (otyrj5SnS4I).md"
+    },
+    {
+      "id": "fTfDZO-p5Fo",
+      "title": "Matjaž Leonardis - Science, Identity and Probability",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Matjaž Leonardis - Science, Identity and Probability (fTfDZO-p5Fo).md"
+    },
+    {
+      "id": "ayUZreGysTo",
+      "title": "Tyler Cowen - The Great Reset",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Tyler Cowen - The Great Reset (ayUZreGysTo).md"
+    },
+    {
+      "id": "gqSqZDxopE4",
+      "title": "[Private video]",
+      "status": "unavailable",
+      "hasSubtitle": false,
+      "attempts": 3,
+      "lastError": "ERROR: [youtube] gqSqZDxopE4: Video unavailable. This video is private"
+    },
+    {
+      "id": "dQPky5DgRlI",
+      "title": "[Private video]",
+      "status": "unavailable",
+      "hasSubtitle": false,
+      "attempts": 3,
+      "lastError": "ERROR: [youtube] dQPky5DgRlI: Video unavailable. This video is private"
+    },
+    {
+      "id": "r4AkTmqvWzM",
+      "title": "Bryan Caplan - Nurturing Orphaned Ideas, Education, and UBI",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 2,
+      "filename": "Bryan Caplan - Nurturing Orphaned Ideas, Education, and UBI (r4AkTmqvWzM).md"
+    }
+  ]
+}
