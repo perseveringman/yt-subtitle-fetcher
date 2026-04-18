@@ -14,6 +14,30 @@ interface PodcastSummary {
   itunesUrl: string | null;
 }
 
+interface TopPodcastSummary {
+  id: string;
+  title: string;
+  author: string;
+  artworkUrl: string | null;
+  itunesUrl: string | null;
+  genre: string | null;
+  releaseDate: string | null;
+}
+
+const TOP_COUNTRIES: { code: string; label: string }[] = [
+  { code: "us", label: "United States" },
+  { code: "gb", label: "United Kingdom" },
+  { code: "cn", label: "China" },
+  { code: "tw", label: "Taiwan" },
+  { code: "hk", label: "Hong Kong" },
+  { code: "jp", label: "Japan" },
+  { code: "kr", label: "Korea" },
+  { code: "de", label: "Germany" },
+  { code: "fr", label: "France" },
+  { code: "ca", label: "Canada" },
+  { code: "au", label: "Australia" },
+];
+
 interface PodcastDetail {
   id: string;
   title: string;
@@ -67,11 +91,53 @@ export default function PodcastSearch() {
   const [hasSearched, setHasSearched] = useState(false);
 
   const [selectedPodcast, setSelectedPodcast] = useState<
-    PodcastSummary | PodcastDetail | null
+    PodcastSummary | PodcastDetail | TopPodcastSummary | null
   >(null);
   const [episodes, setEpisodes] = useState<EpisodeSummary[]>([]);
   const [loadingEpisodes, setLoadingEpisodes] = useState(false);
   const [episodesError, setEpisodesError] = useState<string | null>(null);
+
+  const [topCountry, setTopCountry] = useState("us");
+  const [topPodcasts, setTopPodcasts] = useState<TopPodcastSummary[]>([]);
+  const [loadingTop, setLoadingTop] = useState(false);
+  const [topError, setTopError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadTop = async () => {
+      setLoadingTop(true);
+      setTopError(null);
+      try {
+        const res = await fetch(
+          `/api/podcasts/top?country=${encodeURIComponent(topCountry)}&limit=24`
+        );
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data?.error || `Failed (${res.status})`);
+        }
+        if (!cancelled) {
+          setTopPodcasts((data.results ?? []) as TopPodcastSummary[]);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setTopPodcasts([]);
+          setTopError(
+            error instanceof Error
+              ? error.message
+              : "Failed to load recommendations."
+          );
+        }
+      } finally {
+        if (!cancelled) {
+          setLoadingTop(false);
+        }
+      }
+    };
+    void loadTop();
+    return () => {
+      cancelled = true;
+    };
+  }, [topCountry]);
 
   const runSearch = useCallback(async (term: string) => {
     if (!term.trim()) return;
@@ -270,11 +336,78 @@ export default function PodcastSearch() {
       )}
 
       {!hasSearched && !searching && (
-        <div className="text-center py-16 text-zinc-500">
-          <p className="text-lg">Search for a podcast</p>
-          <p className="text-sm mt-1">
-            Results come from the iTunes podcast directory.
-          </p>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <h3 className="text-sm font-semibold text-zinc-300 uppercase tracking-wide">
+                Top podcasts
+              </h3>
+              <p className="text-xs text-zinc-500 mt-1">
+                Trending shows from Apple Podcasts charts.
+              </p>
+            </div>
+            <select
+              value={topCountry}
+              onChange={(event) => setTopCountry(event.target.value)}
+              className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-sm text-white focus:outline-none focus:border-zinc-600"
+            >
+              {TOP_COUNTRIES.map((country) => (
+                <option key={country.code} value={country.code}>
+                  {country.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {loadingTop && (
+            <div className="text-center py-12 text-zinc-500 text-sm">
+              Loading recommendations…
+            </div>
+          )}
+
+          {topError && !loadingTop && (
+            <div className="text-red-400 text-sm">{topError}</div>
+          )}
+
+          {!loadingTop && !topError && (
+            <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              {topPodcasts.map((podcast, index) => (
+                <li key={podcast.id}>
+                  <button
+                    onClick={() => setSelectedPodcast(podcast)}
+                    className="w-full text-left rounded-lg overflow-hidden border border-zinc-800 bg-zinc-900/40 hover:border-zinc-700 hover:bg-zinc-900 transition-colors"
+                  >
+                    <div className="relative aspect-square bg-zinc-800">
+                      {podcast.artworkUrl && (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={podcast.artworkUrl}
+                          alt={podcast.title}
+                          className="w-full h-full object-cover"
+                        />
+                      )}
+                      <span className="absolute top-2 left-2 bg-black/70 text-white text-xs font-bold px-2 py-0.5 rounded">
+                        #{index + 1}
+                      </span>
+                    </div>
+                    <div className="p-3">
+                      <div className="text-white text-sm font-medium line-clamp-2">
+                        {podcast.title}
+                      </div>
+                      <div className="text-xs text-zinc-400 truncate mt-1">
+                        {podcast.author}
+                      </div>
+                      {podcast.genre && (
+                        <div className="text-xs text-zinc-500 mt-1">
+                          {podcast.genre}
+                        </div>
+                      )}
+                    </div>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       )}
 
