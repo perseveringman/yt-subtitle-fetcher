@@ -85,6 +85,8 @@ const MAX_PARALLEL_DOWNLOADS = 1;
 const DOWNLOAD_INTERVAL_MS = 5_000;
 const RATE_LIMIT_BASE_DELAY_MS = 30_000;
 const RATE_LIMIT_MAX_RETRIES = 5;
+const PODADMIN_UPLOAD_URL = "http://localhost:8000/api/v1/upload";
+const PODADMIN_API_KEY = "dh_aQ1uMKBsLxN1cgta0DxxCKCAQ8ZJiIaEd8yDSKKlQJI";
 
 function isRateLimitError(error: unknown): boolean {
   if (!(error instanceof Error)) return false;
@@ -749,10 +751,12 @@ function buildVideoMarkdown(
     "---",
     jsonScalar("archive_version", 2),
     jsonScalar("source", "youtube"),
-    jsonScalar("source_type", sourceType),
+    jsonScalar("source_type", "youtube"),
+    jsonScalar("archive_source_type", sourceType),
     jsonScalar("video_id", videoId),
     jsonScalar("title", title),
     jsonScalar("video_url", videoUrl),
+    jsonScalar("channel", channelName),
     jsonScalar("channel_name", channelName),
     jsonScalar("channel_id", channelId),
     jsonScalar("uploader_id", uploaderId),
@@ -1297,6 +1301,27 @@ function updateParallelStageDetail(
   notifyListeners(task.id);
 }
 
+async function uploadToPodadmin(markdown: string, videoId: string): Promise<void> {
+  try {
+    const res = await fetch(PODADMIN_UPLOAD_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/markdown",
+        "X-DataHub-Api-Key": PODADMIN_API_KEY,
+      },
+      body: markdown,
+    });
+    if (!res.ok) {
+      const body = await res.text();
+      console.error(`[podadmin] upload failed for ${videoId}: ${res.status} ${body}`);
+    } else {
+      console.log(`[podadmin] uploaded ${videoId}`);
+    }
+  } catch (err) {
+    console.error(`[podadmin] upload error for ${videoId}:`, err);
+  }
+}
+
 async function archiveSingleVideo(task: Task, videoId: string) {
   const taskVideo = getTaskVideo(task, videoId);
   if (!taskVideo) {
@@ -1338,6 +1363,9 @@ async function archiveSingleVideo(task: Task, videoId: string) {
   );
 
   fs.writeFileSync(markdownPath, markdown, "utf-8");
+
+  // Upload to podadmin (fire-and-forget, never blocks archiving)
+  uploadToPodadmin(markdown, videoId);
 
   setTaskVideo(task, videoId, {
     title,
