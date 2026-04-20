@@ -29,7 +29,7 @@ The Markdown format is designed for downstream agent analysis:
 - The body contains readable sections:
   - `## Video Summary`
   - `## Description`
-  - `## Transcript`
+- `## Transcript` (json3-derived timed cue blocks rendered as second-precision `start --> end` lines)
   - `## Comments`
 - Comment boundaries are marked with:
   - `<!-- YOUTUBE_COMMENTS_START -->`
@@ -63,3 +63,4 @@ npm run dev
 
 - `yt-dlp` available in `PATH`
 - Chrome cookies available locally, since the app currently uses `--cookies-from-browser chrome`
+- put your DataHub upload key into `.env.local` as `DATAHUB_API_KEY=...` if you want archived videos uploaded to DataHub / podadmin

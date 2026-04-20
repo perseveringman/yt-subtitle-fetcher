@@ -1,6 +1,7 @@
 import { spawn } from "child_process";
 import * as fs from "fs";
 import * as path from "path";
+import { getDataHubUploadApiKey } from "./config.js";
 
 export type SourceType = "channel" | "playlist" | "video";
 export type TaskMode = "archive" | "retry-missing";
@@ -62,6 +63,7 @@ interface VideoListEntry {
 interface VideoArchive {
   info: JsonRecord;
   subtitleContent: string | null;
+  subtitleFormat: "json3" | "vtt" | null;
 }
 
 interface BatchManifest {
@@ -86,7 +88,16 @@ const DOWNLOAD_INTERVAL_MS = 5_000;
 const RATE_LIMIT_BASE_DELAY_MS = 30_000;
 const RATE_LIMIT_MAX_RETRIES = 5;
 const PODADMIN_UPLOAD_URL = "http://localhost:8000/api/v1/upload";
-const PODADMIN_API_KEY = "dh_aQ1uMKBsLxN1cgta0DxxCKCAQ8ZJiIaEd8yDSKKlQJI";
+const PODADMIN_SOURCE = "yt-subtitle-fetcher";
+
+interface PodadminUploadPayload {
+  markdown: string;
+  source: string;
+  source_type: "youtube";
+  doc_id: string;
+  field_map: Record<string, string>;
+  hints: Record<string, string>;
+}
 
 function isRateLimitError(error: unknown): boolean {
   if (!(error instanceof Error)) return false;
@@ -615,6 +626,133 @@ function quoteText(text: string): string[] {
   return text.split("\n").map((line) => `> ${line}`);
 }
 
+function stripSubtitleMarkup(text: string): string {
+  return text.replace(/<[^>]+>/g, "").replace(/&nbsp;/g, " ").trim();
+}
+
+function stripSubtitleMarkupPreservingSpacing(text: string): string {
+  return text.replace(/<[^>]+>/g, "").replace(/&nbsp;/g, " ");
+}
+
+function normalizeCueTimingLine(timingLine: string): string | null {
+  const match = timingLine.match(
+    /^((?:(?:\d+:)?\d{2}:\d{2}(?:\.\d{3})?)?)\s+-->\s+((?:(?:\d+:)?\d{2}:\d{2}(?:\.\d{3})?)?)/
+  );
+  if (!match) {
+    return null;
+  }
+
+  const startMs = parseCueTimeToMs(match[1]);
+  const endMs = parseCueTimeToMs(match[2]);
+  if (startMs === null || endMs === null) {
+    return null;
+  }
+
+  return `${formatCueTimeFromMs(startMs, "floor")} --> ${formatCueTimeFromMs(endMs, "ceil")}`;
+}
+
+function parseCueTimeToMs(value: string): number | null {
+  const match = value.trim().match(/^(?:(\d+):)?(\d{2}):(\d{2})(?:\.(\d{3}))?$/);
+  if (!match) {
+    return null;
+  }
+
+  const [, hours = "0", minutes, seconds, milliseconds = "0"] = match;
+  return (
+    parseInt(hours, 10) * 3_600_000 +
+    parseInt(minutes, 10) * 60_000 +
+    parseInt(seconds, 10) * 1_000 +
+    parseInt(milliseconds, 10)
+  );
+}
+
+function formatCueTimeFromMs(
+  value: number,
+  strategy: "floor" | "ceil" = "floor"
+): string {
+  const roundedSeconds =
+    strategy === "ceil"
+      ? Math.ceil(Math.max(0, value) / 1_000)
+      : Math.floor(Math.max(0, value) / 1_000);
+  const hours = Math.floor(roundedSeconds / 3_600);
+  const minutes = Math.floor((roundedSeconds % 3_600) / 60);
+  const seconds = roundedSeconds % 60;
+
+  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
+
+function extractIncrementalSubtitleText(previousText: string, currentText: string): string {
+  if (!previousText) {
+    return currentText;
+  }
+
+  if (currentText === previousText || previousText.endsWith(currentText)) {
+    return "";
+  }
+
+  const maxOverlap = Math.min(previousText.length, currentText.length);
+  for (let overlapLength = maxOverlap; overlapLength > 0; overlapLength -= 1) {
+    if (previousText.slice(-overlapLength) === currentText.slice(0, overlapLength)) {
+      return currentText.slice(overlapLength).trim();
+    }
+  }
+
+  return currentText;
+}
+
+function json3ToTranscript(json3Content: string): string | null {
+  type Json3Event = {
+    tStartMs?: number;
+    dDurationMs?: number;
+    segs?: Array<{ utf8?: string }>;
+  };
+
+  let json3Data: { events?: Json3Event[] };
+  try {
+    json3Data = JSON.parse(json3Content) as { events?: Json3Event[] };
+  } catch {
+    return null;
+  }
+
+  if (!Array.isArray(json3Data.events)) {
+    return null;
+  }
+
+  const cues: string[] = [];
+  let lastRawText = "";
+
+  for (const event of json3Data.events) {
+    if (!event.segs || event.tStartMs == null) {
+      continue;
+    }
+
+    const rawText = event.segs
+      .map((segment) => stripSubtitleMarkupPreservingSpacing(segment.utf8 ?? ""))
+      .join("")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    if (!rawText || rawText === "\n") {
+      continue;
+    }
+
+    const text = extractIncrementalSubtitleText(lastRawText, rawText);
+    if (!text) {
+      lastRawText = rawText;
+      continue;
+    }
+
+    const startMs = event.tStartMs;
+    const endMs = event.tStartMs + (event.dDurationMs ?? 0);
+    cues.push(
+      `${formatCueTimeFromMs(startMs, "floor")} --> ${formatCueTimeFromMs(endMs, "ceil")}\n${text}`
+    );
+    lastRawText = rawText;
+  }
+
+  return cues.length > 0 ? cues.join("\n\n") : null;
+}
+
 function formatCommentsSection(comments: JsonRecord[]): string[] {
   if (comments.length === 0) {
     return ["_No comments captured._"];
@@ -655,51 +793,74 @@ function formatCommentsSection(comments: JsonRecord[]): string[] {
 }
 
 function vttToTranscript(vttContent: string): string | null {
-  const lines = vttContent.split("\n");
-  const textLines: string[] = [];
-  let lastText = "";
+  const blocks = vttContent
+    .split(/\r?\n\r?\n/)
+    .map((block) => block.trim())
+    .filter(Boolean);
+  const cues: string[] = [];
+  let lastRawText = "";
 
-  for (const line of lines) {
-    const trimmed = line.trim();
+  for (const block of blocks) {
+    const lines = block
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean);
+
     if (
-      !trimmed ||
-      trimmed === "WEBVTT" ||
-      trimmed.startsWith("Kind:") ||
-      trimmed.startsWith("Language:") ||
-      trimmed.startsWith("NOTE") ||
-      /^\d+$/.test(trimmed) ||
-      trimmed.includes("-->")
+      lines.length === 0 ||
+      lines[0] === "WEBVTT" ||
+      lines[0].startsWith("Kind:") ||
+      lines[0].startsWith("Language:") ||
+      lines[0].startsWith("NOTE") ||
+      lines[0] === "STYLE" ||
+      lines[0] === "REGION"
     ) {
       continue;
     }
 
-    const cleaned = trimmed.replace(/<[^>]+>/g, "").trim();
-    if (cleaned && cleaned !== lastText) {
-      textLines.push(cleaned);
-      lastText = cleaned;
+    const timingIndex = lines.findIndex((line) => line.includes("-->"));
+    if (timingIndex === -1) {
+      continue;
     }
-  }
 
-  if (textLines.length === 0) {
-    return null;
-  }
-
-  const paragraphs: string[] = [];
-  let currentParagraph: string[] = [];
-
-  for (const line of textLines) {
-    currentParagraph.push(line);
-    if (currentParagraph.length >= 5) {
-      paragraphs.push(currentParagraph.join(" "));
-      currentParagraph = [];
+    const timingLine = normalizeCueTimingLine(lines[timingIndex]);
+    if (!timingLine) {
+      continue;
     }
+
+    const rawText = lines
+      .slice(timingIndex + 1)
+      .map(stripSubtitleMarkup)
+      .filter(Boolean)
+      .join(" ");
+    const text = extractIncrementalSubtitleText(lastRawText, rawText);
+
+    if (!text) {
+      lastRawText = rawText;
+      continue;
+    }
+
+    cues.push(`${timingLine}\n${text}`);
+    lastRawText = rawText;
   }
 
-  if (currentParagraph.length > 0) {
-    paragraphs.push(currentParagraph.join(" "));
+  return cues.length > 0 ? cues.join("\n\n") : null;
+}
+
+function subtitleToTranscript(
+  subtitleContent: string,
+  subtitleFormat: "json3" | "vtt" | null
+): string | null {
+  if (subtitleFormat === "json3") {
+    return json3ToTranscript(subtitleContent);
+  }
+  if (subtitleFormat === "vtt") {
+    return vttToTranscript(subtitleContent);
   }
 
-  return paragraphs.join("\n\n");
+  return subtitleContent.trim().startsWith("{")
+    ? json3ToTranscript(subtitleContent)
+    : vttToTranscript(subtitleContent);
 }
 
 function getPreferredChannelName(info: JsonRecord): string {
@@ -714,13 +875,15 @@ function getPreferredChannelName(info: JsonRecord): string {
 function buildVideoMarkdown(
   sourceType: SourceType,
   info: JsonRecord,
-  subtitleContent: string | null
+  subtitleContent: string | null,
+  subtitleFormat: "json3" | "vtt" | null
 ): string {
   const videoId = getStringValue(info, "id") ?? "unknown_video";
   const title = getStringValue(info, "title") ?? videoId;
   const videoUrl =
     getStringValue(info, "webpage_url") ??
     `https://www.youtube.com/watch?v=${videoId}`;
+  const thumbnailUrl = getStringValue(info, "thumbnail") ?? null;
   const channelName = getPreferredChannelName(info);
   const channelId = getStringValue(info, "channel_id") ?? null;
   const uploaderId = getStringValue(info, "uploader_id") ?? null;
@@ -732,7 +895,8 @@ function buildVideoMarkdown(
   const language = getStringValue(info, "language") ?? null;
   const availability = getStringValue(info, "availability") ?? null;
   const description = getStringValue(info, "description");
-  const transcript = subtitleContent ? vttToTranscript(subtitleContent) : null;
+  const transcript =
+    subtitleContent ? subtitleToTranscript(subtitleContent, subtitleFormat) : null;
   const tags = Array.isArray(info.tags)
     ? info.tags.filter(
         (tag): tag is string => typeof tag === "string" && tag.trim().length > 0
@@ -756,6 +920,8 @@ function buildVideoMarkdown(
     jsonScalar("video_id", videoId),
     jsonScalar("title", title),
     jsonScalar("video_url", videoUrl),
+    jsonScalar("thumbnail_url", thumbnailUrl),
+    jsonScalar("source_url_canonical", videoUrl),
     jsonScalar("channel", channelName),
     jsonScalar("channel_name", channelName),
     jsonScalar("channel_id", channelId),
@@ -1303,23 +1469,87 @@ function updateParallelStageDetail(
 
 async function uploadToPodadmin(markdown: string, videoId: string): Promise<void> {
   try {
+    const apiKey = getDataHubUploadApiKey();
+    if (!apiKey) {
+      console.warn(
+        `[podadmin] upload skipped for ${videoId}: DATAHUB_API_KEY is not configured`
+      );
+      return;
+    }
+
+    const payload = buildPodadminUploadPayload(markdown, videoId);
     const res = await fetch(PODADMIN_UPLOAD_URL, {
       method: "POST",
       headers: {
-        "Content-Type": "text/markdown",
-        "X-DataHub-Api-Key": PODADMIN_API_KEY,
+        "Content-Type": "application/json",
+        "X-DataHub-Api-Key": apiKey,
       },
-      body: markdown,
+      body: JSON.stringify(payload),
     });
+    const responseText = await res.text();
+
     if (!res.ok) {
-      const body = await res.text();
-      console.error(`[podadmin] upload failed for ${videoId}: ${res.status} ${body}`);
-    } else {
-      console.log(`[podadmin] uploaded ${videoId}`);
+      console.error(
+        `[podadmin] upload failed for ${videoId}: ${res.status} ${responseText}`
+      );
+      return;
     }
+
+    if (!responseText.trim()) {
+      console.log(`[podadmin] uploaded ${videoId}`);
+      return;
+    }
+
+    let response: JsonRecord | null = null;
+    try {
+      const parsed = JSON.parse(responseText) as unknown;
+      response = isRecord(parsed) ? parsed : null;
+    } catch {
+      console.warn(
+        `[podadmin] uploaded ${videoId}, but response was not valid JSON: ${responseText}`
+      );
+      return;
+    }
+
+    const mappingStatus = response ? getStringValue(response, "mapping_status") : null;
+    const mappingIssues =
+      response && Array.isArray(response.mapping_issues)
+        ? response.mapping_issues.filter(
+            (issue): issue is string => typeof issue === "string" && issue.trim().length > 0
+          )
+        : [];
+
+    if (mappingStatus === "needs_review") {
+      const detail = mappingIssues.length > 0 ? mappingIssues.join(", ") : "no issues returned";
+      console.warn(`[podadmin] uploaded ${videoId} with needs_review: ${detail}`);
+      return;
+    }
+
+    console.log(`[podadmin] uploaded ${videoId}`);
   } catch (err) {
     console.error(`[podadmin] upload error for ${videoId}:`, err);
   }
+}
+
+function buildPodadminUploadPayload(
+  markdown: string,
+  videoId: string
+): PodadminUploadPayload {
+  const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+
+  return {
+    markdown,
+    source: PODADMIN_SOURCE,
+    source_type: "youtube",
+    doc_id: `youtube:${videoId}`,
+    field_map: {
+      source_episode_ref: "video_id",
+      source_podcast_ref: "channel",
+    },
+    hints: {
+      source_url_canonical: videoUrl,
+    },
+  };
 }
 
 async function archiveSingleVideo(task: Task, videoId: string) {
@@ -1359,7 +1589,8 @@ async function archiveSingleVideo(task: Task, videoId: string) {
   const markdown = buildVideoMarkdown(
     task.sourceType,
     archive.info,
-    archive.subtitleContent
+    archive.subtitleContent,
+    archive.subtitleFormat
   );
 
   fs.writeFileSync(markdownPath, markdown, "utf-8");
@@ -1855,8 +2086,8 @@ async function downloadVideoArchive(videoId: string): Promise<VideoArchive> {
       "--write-auto-subs",
       "--sub-langs",
       SUBTITLE_LANG_PRIORITY.join(","),
-      "--convert-subs",
-      "vtt",
+      "--sub-format",
+      "json3",
       "--no-warnings",
       "--cookies-from-browser",
       "chrome",
@@ -1883,7 +2114,9 @@ async function downloadVideoArchive(videoId: string): Promise<VideoArchive> {
         .map((filename) => path.join(TMP_DIR, filename));
 
       const infoFile = matchingFiles.find((file) => file.endsWith(".info.json"));
-      const subtitleFiles = matchingFiles.filter((file) => file.endsWith(".vtt"));
+      const subtitleFiles = matchingFiles.filter(
+        (file) => file.endsWith(".json3") || file.endsWith(".vtt")
+      );
 
       if (!infoFile) {
         cleanupFiles(matchingFiles);
@@ -1902,9 +2135,15 @@ async function downloadVideoArchive(videoId: string): Promise<VideoArchive> {
         const subtitleFile = chooseSubtitleFile(subtitleFiles);
         const subtitleContent =
           subtitleFile === null ? null : fs.readFileSync(subtitleFile, "utf-8");
+        const subtitleFormat =
+          subtitleFile?.endsWith(".json3")
+            ? "json3"
+            : subtitleFile?.endsWith(".vtt")
+              ? "vtt"
+              : null;
 
         cleanupFiles(matchingFiles);
-        resolve({ info, subtitleContent });
+        resolve({ info, subtitleContent, subtitleFormat });
       } catch (error: unknown) {
         cleanupFiles(matchingFiles);
         reject(error);

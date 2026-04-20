@@ -5,6 +5,8 @@ export interface Frontmatter {
   uploader_id?: string;
   video_id?: string;
   video_url?: string;
+  thumbnail_url?: string;
+  source_url_canonical?: string;
   published_at?: string;
   upload_date?: string;
   duration_human?: string;
@@ -66,6 +68,7 @@ export function parseFrontmatter(raw: string): {
 }
 
 const TRANSCRIPT_MARKER = "<!-- YOUTUBE_TRANSCRIPT_START -->";
+const TRANSCRIPT_END_MARKER = "<!-- YOUTUBE_TRANSCRIPT_END -->";
 const SECTION_SEPARATOR = /^-{10,}\s*$/;
 
 function splitTranscript(body: string): { pre: string; transcript: string } {
@@ -74,6 +77,7 @@ function splitTranscript(body: string): { pre: string; transcript: string } {
   const pre = body.slice(0, idx);
   let transcript = body.slice(idx + TRANSCRIPT_MARKER.length);
   transcript = transcript.replace(/^\s*##\s+Transcript\s*\r?\n/, "");
+  transcript = transcript.split(TRANSCRIPT_END_MARKER, 1)[0] ?? transcript;
   return { pre, transcript };
 }
 
