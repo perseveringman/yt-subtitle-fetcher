@@ -1,0 +1,593 @@
+{
+  "version": 1,
+  "channelName": "ami.moment",
+  "sourceType": "channel",
+  "sourceUrl": "https://www.youtube.com/@ami.moment/videos",
+  "updatedAt": "2026-04-23T12:20:59.637Z",
+  "videos": [
+    {
+      "id": "7M2ORkHRpAc",
+      "title": "在南半球，發現了和我一樣愛笑的小動物！😆 西澳旅行日記vlog",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "在南半球，發現了和我一樣愛笑的小動物！😆 西澳旅行日記vlog (7M2ORkHRpAc).md"
+    },
+    {
+      "id": "hJauYIVE69k",
+      "title": "我如何用obsidian+AI做知識管理&內容創作？🤔",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "我如何用obsidian+AI做知識管理&內容創作？🤔 (hJauYIVE69k).md"
+    },
+    {
+      "id": "iE4Gdux9uAE",
+      "title": "把剪輯交給 AI：我打造了一個自動剪Aroll的AI Agent 🔧🤖！",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "把剪輯交給 AI：我打造了一個自動剪Aroll的AI Agent 🔧🤖！ (iE4Gdux9uAE).md"
+    },
+    {
+      "id": "k48lzpOODCA",
+      "title": "2026年，除了看電影，Vision Pro還能用來做什麼？",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "2026年，除了看電影，Vision Pro還能用來做什麼？ (k48lzpOODCA).md"
+    },
+    {
+      "id": "aa8uirq0-RM",
+      "title": "2026年日程&知識管理體系📒｜如何用手帳&電子筆記搭建秩序感生活？",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "2026年日程&知識管理體系📒｜如何用手帳&電子筆記搭建秩序感生活？ (aa8uirq0-RM).md"
+    },
+    {
+      "id": "NSsl00cp-1s",
+      "title": "自由職業第二年，做了些什麼？我的2025年度回顧📅",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "自由職業第二年，做了些什麼？我的2025年度回顧📅 (NSsl00cp-1s).md"
+    },
+    {
+      "id": "7aJh-KdqeJE",
+      "title": "為什麼2026年你一定要學會如何用AI做影片？🎬",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "為什麼2026年你一定要學會如何用AI做影片？🎬 (7aJh-KdqeJE).md"
+    },
+    {
+      "id": "9rJYQFMsqAE",
+      "title": "Apple带我去澳洲上iPhone摄影课？📱和海外博主一起拍攝的2天1夜🦘我學到什麼？",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "Apple带我去澳洲上iPhone摄影课？📱和海外博主一起拍攝的2天1夜🦘我學到什麼？ (9rJYQFMsqAE).md"
+    },
+    {
+      "id": "v7LEcC2jdqo",
+      "title": "用iPhone也能拍質感VLOG的秘密？🤫～ 🐈‍⬛ 名古屋吉卜力公園一日遊 Shot on iPhone 17 Pro x Kino App",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "用iPhone也能拍質感VLOG的秘密？🤫～ 🐈‍⬛ 名古屋吉卜力公園一日遊 Shot on iPhone 17 Pro x Kino App (v7LEcC2jdqo).md"
+    },
+    {
+      "id": "GS15Z7yEwdk",
+      "title": "幕後vlog 🎬｜一個人是怎麼拍業配影片的👩🏻‍💻✨",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "幕後vlog 🎬｜一個人是怎麼拍業配影片的👩🏻‍💻✨ (GS15Z7yEwdk).md"
+    },
+    {
+      "id": "4-89v26eTLw",
+      "title": "普通人可以用AI做什麼？👩🏻‍💻 轉碼失敗，我卻從AI手中拿到了新世界的入場券",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "普通人可以用AI做什麼？👩🏻‍💻 轉碼失敗，我卻從AI手中拿到了新世界的入場券 (4-89v26eTLw).md"
+    },
+    {
+      "id": "FY_AKlMRB2w",
+      "title": "不上班怎麼賺錢？自由工作者的一週 freelancer vlog",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "不上班怎麼賺錢？自由工作者的一週 freelancer vlog (FY_AKlMRB2w).md"
+    },
+    {
+      "id": "lEZ9lNTLXzk",
+      "title": "會飛上天的Pocket3🤫！航拍菜鳥用DJI Mini 5 Pro能拍成什麼樣👀📷？",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "會飛上天的Pocket3🤫！航拍菜鳥用DJI Mini 5 Pro能拍成什麼樣👀📷？ (lEZ9lNTLXzk).md"
+    },
+    {
+      "id": "1I4ujsHvVuU",
+      "title": "遠離人潮的東京漫遊路線🗼｜3日FUJIFILM X-E5實拍體驗vlog 📷～",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "遠離人潮的東京漫遊路線🗼｜3日FUJIFILM X-E5實拍體驗vlog 📷～ (1I4ujsHvVuU).md"
+    },
+    {
+      "id": "uTMJSTcixBc",
+      "title": "讓iPad更好用的配件？🤔我的8个iPad隱藏玩法 feat. Moft Dynamic Folio",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "讓iPad更好用的配件？🤔我的8个iPad隱藏玩法 feat. Moft Dynamic Folio (uTMJSTcixBc).md"
+    },
+    {
+      "id": "GTqKLjFGPPo",
+      "title": "Nikon Z5II實拍體驗📷｜挑戰開盲盒式日本旅行✈️～J人不做攻略游佐賀🇯🇵",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "Nikon Z5II實拍體驗📷｜挑戰開盲盒式日本旅行✈️～J人不做攻略游佐賀🇯🇵 (GTqKLjFGPPo).md"
+    },
+    {
+      "id": "nhreu3vPrJQ",
+      "title": "超好玩！富士X half 實拍體驗 📸：隨便拍都好看的「半格」口袋相機FUJIFILM  X half Review",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "超好玩！富士X half 實拍體驗 📸：隨便拍都好看的「半格」口袋相機FUJIFILM  X half Review (nhreu3vPrJQ).md"
+    },
+    {
+      "id": "Txy9NedUNCs",
+      "title": "我的9件愛用相機配件分享📷｜看完很難不花錢系列💸～",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "我的9件愛用相機配件分享📷｜看完很難不花錢系列💸～ (Txy9NedUNCs).md"
+    },
+    {
+      "id": "3InNU1SLJ1w",
+      "title": "2025年瀨戶內海藝術祭🚢🌊｜在直島做一日島民的日本民宿初體驗🏠🇯🇵～",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "2025年瀨戶內海藝術祭🚢🌊｜在直島做一日島民的日本民宿初體驗🏠🇯🇵～ (3InNU1SLJ1w).md"
+    },
+    {
+      "id": "eCIzWp4bsAo",
+      "title": "2025年最佳VLOG口袋相機📷?!｜Canon PowerShot V1上手實拍體驗&技巧分享✨",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "2025年最佳VLOG口袋相機📷_!｜Canon PowerShot V1上手實拍體驗&技巧分享✨ (eCIzWp4bsAo).md"
+    },
+    {
+      "id": "QIWlMU6i1wE",
+      "title": "新手如何選擇適合自己的鏡頭？📷｜索尼變焦鏡頭推薦｜A beginner’s guide to camera lenses",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "新手如何選擇適合自己的鏡頭？📷｜索尼變焦鏡頭推薦｜A beginner’s guide to camera lenses (QIWlMU6i1wE).md"
+    },
+    {
+      "id": "BU5odOA4Pl0",
+      "title": "簡單又高效的iPhone桌面佈局📱｜My minimal iPhone set up for productivity",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "簡單又高效的iPhone桌面佈局📱｜My minimal iPhone set up for productivity (BU5odOA4Pl0).md"
+    },
+    {
+      "id": "bLzzqGmCaSU",
+      "title": "用Notion做年度回顧｜不上班的2024年，過得怎麼樣🤔？",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "用Notion做年度回顧｜不上班的2024年，過得怎麼樣🤔？ (bLzzqGmCaSU).md"
+    },
+    {
+      "id": "HrVI6CGu2RY",
+      "title": "如何用手帳規劃&紀錄生活📖｜2025年手帳·愛用文具推薦｜My 2025 Planner & Journal System",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "如何用手帳規劃&紀錄生活📖｜2025年手帳·愛用文具推薦｜My 2025 Planner & Journal System (HrVI6CGu2RY).md"
+    },
+    {
+      "id": "soiA80B3hNQ",
+      "title": "我的白色系桌面佈置 & 15件桌面好物分享｜2025 Desk Set Up 🤍",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "我的白色系桌面佈置 & 15件桌面好物分享｜2025 Desk Set Up 🤍 (soiA80B3hNQ).md"
+    },
+    {
+      "id": "lRpNsvvnKHc",
+      "title": "2025年Notion自我管理模板｜如何在一年內實現你的目標？",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "2025年Notion自我管理模板｜如何在一年內實現你的目標？ (lRpNsvvnKHc).md"
+    },
+    {
+      "id": "6g3AATi2Zfo",
+      "title": "新手如何拍出有趣的VLOG？｜Insta Go3s 拍攝小技巧～ 📷",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "新手如何拍出有趣的VLOG？｜Insta Go3s 拍攝小技巧～ 📷 (6g3AATi2Zfo).md"
+    },
+    {
+      "id": "BAQxeF60SgU",
+      "title": "4K｜會飛的小相機？✈️📷 DJI NEO 掌上VLOG無人機使用體驗&測評",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "4K｜會飛的小相機？✈️📷 DJI NEO 掌上VLOG無人機使用體驗&測評 (BAQxeF60SgU).md"
+    },
+    {
+      "id": "Koj5agb3YC4",
+      "title": "4K VLOG｜一起去看超震撼的長岡花火大會🎆｜日本「一泊二日」旅行團初體驗🇯🇵｜偶遇築地本願寺的盂蘭盆阿波舞會市集🏮～",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "4K VLOG｜一起去看超震撼的長岡花火大會🎆｜日本「一泊二日」旅行團初體驗🇯🇵｜偶遇築地本願寺的盂蘭盆阿波舞會市集🏮～ (Koj5agb3YC4).md"
+    },
+    {
+      "id": "5eBjv3gawe0",
+      "title": "iPhone16系列拍照效果如何？📷｜實拍體驗VLOG✨｜iPhone 16 Camera Review",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "iPhone16系列拍照效果如何？📷｜實拍體驗VLOG✨｜iPhone 16 Camera Review (5eBjv3gawe0).md"
+    },
+    {
+      "id": "eP0dj2USLok",
+      "title": "東京一日遊🇯🇵｜貓控不能錯過的世田谷區🐈✨｜招福貓發源地豪德寺🐱、民宅裡超美喫茶店🍵、貓咪書店Cat's Meow Books📖、 免費東京夜景🌃可以看到富士山的胡蘿蔔塔🥕｜Setagaya Vlog",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "東京一日遊🇯🇵｜貓控不能錯過的世田谷區🐈✨｜招福貓發源地豪德寺🐱、民宅裡超美喫茶店🍵、貓咪書店Cat's Meow Books📖、 免費東京夜景🌃可以看到富士山的胡蘿蔔塔🥕｜Setagaya Vlog (eP0dj2USLok).md"
+    },
+    {
+      "id": "VyLX5HkHEls",
+      "title": "我是如何剪輯VLOG的？💻✨｜影片調色技巧、BGM哪裡找、快速上字幕的方法｜後期過程全公開 ｜How I edit my videos",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "我是如何剪輯VLOG的？💻✨｜影片調色技巧、BGM哪裡找、快速上字幕的方法｜後期過程全公開 ｜How I edit my videos (VyLX5HkHEls).md"
+    },
+    {
+      "id": "eut_ZLdW4pI",
+      "title": "6個簡單又免費的小技巧：讓MacBook使用更高效！💻｜6 MacBook Tips for Productivity",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "6個簡單又免費的小技巧：讓MacBook使用更高效！💻｜6 MacBook Tips for Productivity (eut_ZLdW4pI).md"
+    },
+    {
+      "id": "-P_oG-IrWGk",
+      "title": "🇯🇵福岡VLOG｜貓島的治癒之旅🐈｜太宰府天滿宮半日遊⛩️｜超好逛的藥院雜貨街道～🚶｜FUKUOKA VLOG",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 2,
+      "filename": "🇯🇵福岡VLOG｜貓島的治癒之旅🐈｜太宰府天滿宮半日遊⛩️｜超好逛的藥院雜貨街道～🚶｜FUKUOKA VLOG (-P_oG-IrWGk).md"
+    },
+    {
+      "id": "mVOMfGiA9XY",
+      "title": "一個人漫遊北海道❄️｜懸崖邊的麵包店🍞🌊｜住吉神社·雪中紅色鳥居⛩️｜函館港&金森紅磚倉庫散步🚶～",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "一個人漫遊北海道❄️｜懸崖邊的麵包店🍞🌊｜住吉神社·雪中紅色鳥居⛩️｜函館港&金森紅磚倉庫散步🚶～ (mVOMfGiA9XY).md"
+    },
+    {
+      "id": "DYYA96pjQzQ",
+      "title": "🇯🇵日本福岡旅行VLOG｜讓人幸福的麵包店🍞｜去夏天的糸島看海🌊✨｜限定明太子鰻魚飯🍱｜超美的白色鳥居⛩️二見浦夫婦岩｜FUKUOKA VLOG",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "🇯🇵日本福岡旅行VLOG｜讓人幸福的麵包店🍞｜去夏天的糸島看海🌊✨｜限定明太子鰻魚飯🍱｜超美的白色鳥居⛩️二見浦夫婦岩｜FUKUOKA VLOG (DYYA96pjQzQ).md"
+    },
+    {
+      "id": "helVDKbsUds",
+      "title": "去旅行帶什麼鏡頭？✈️ 📷｜Sony 24-50mm F2.8G、16-25mm F2.8G 全新輕量大光圈變焦鏡頭測評 ✨",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "去旅行帶什麼鏡頭？✈️ 📷｜Sony 24-50mm F2.8G、16-25mm F2.8G 全新輕量大光圈變焦鏡頭測評 ✨ (helVDKbsUds).md"
+    },
+    {
+      "id": "Q7K8ekuj_as",
+      "title": "3個讓閱讀更高效的方法📖｜輸出比輸入更重要～｜How To Read Books Effectively",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "3個讓閱讀更高效的方法📖｜輸出比輸入更重要～｜How To Read Books Effectively (Q7K8ekuj_as).md"
+    },
+    {
+      "id": "3xP_MvE56bM",
+      "title": "一個人去北海道旅行｜發現不一樣的札幌～❄️ Solo Trip to Hokkaido｜Sapporo Vlog",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "一個人去北海道旅行｜發現不一樣的札幌～❄️ Solo Trip to Hokkaido｜Sapporo Vlog (3xP_MvE56bM).md"
+    },
+    {
+      "id": "bjYaH3dScwM",
+      "title": "5分鐘學會Notion行事曆｜Notion Calendar使用技巧、中文教程｜Notion Calendar Tutorial",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "5分鐘學會Notion行事曆｜Notion Calendar使用技巧、中文教程｜Notion Calendar Tutorial (bjYaH3dScwM).md"
+    },
+    {
+      "id": "vjMJFdt19DE",
+      "title": "從投行辭職創業的一年過得怎麼樣？📅｜我的2023年回顧｜My annual review using notion",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "從投行辭職創業的一年過得怎麼樣？📅｜我的2023年回顧｜My annual review using notion (vjMJFdt19DE).md"
+    },
+    {
+      "id": "Yq3gaXm_uDA",
+      "title": "（免費模板）2024年用Notion+效率APP打造你的自我管理系統！｜2024 Free Notion Template",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "（免費模板）2024年用Notion+效率APP打造你的自我管理系統！｜2024 Free Notion Template (Yq3gaXm_uDA).md"
+    },
+    {
+      "id": "CbbCJfQj-U0",
+      "title": "慢游京都&奈良｜打卡世界上最美的書店｜在若草山和小鹿一起看日落｜3個星期的日本語言學校能學到什麼程度？｜Study Japanese in Kyoto｜KICL",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "慢游京都&奈良｜打卡世界上最美的書店｜在若草山和小鹿一起看日落｜3個星期的日本語言學校能學到什麼程度？｜Study Japanese in Kyoto｜KICL (CbbCJfQj-U0).md"
+    },
+    {
+      "id": "KBNbsy5SkEQ",
+      "title": "在京都文化日本語學校學日文EP3｜在哲學之道散步｜製作榻榻米和友禪染｜性價比超高的燒鳥店｜放學後的日常～｜KICL",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "在京都文化日本語學校學日文EP3｜在哲學之道散步｜製作榻榻米和友禪染｜性價比超高的燒鳥店｜放學後的日常～｜KICL (KBNbsy5SkEQ).md"
+    },
+    {
+      "id": "VoqgqO5B0u4",
+      "title": "快閃東京·秋葉原🎮｜開箱220元一晚的膠囊旅館🛏️｜DJI Osmo Pocket 3 Vlog 實拍｜獨自旅行日記～🇯🇵｜Tokyo Capsule Hotel｜Akihabara",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "快閃東京·秋葉原🎮｜開箱220元一晚的膠囊旅館🛏️｜DJI Osmo Pocket 3 Vlog 實拍｜獨自旅行日記～🇯🇵｜Tokyo Capsule Hotel｜Akihabara (VoqgqO5B0u4).md"
+    },
+    {
+      "id": "DLc8fG5bsVg",
+      "title": "4K｜DJI Osmo Pocket 3 使用初體驗📷：超乎預期的全能口袋Vlog相機！｜加拿大、日本旅行實拍",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "4K｜DJI Osmo Pocket 3 使用初體驗📷：超乎預期的全能口袋Vlog相機！｜加拿大、日本旅行實拍 (DLc8fG5bsVg).md"
+    },
+    {
+      "id": "6Inubk5vRvk",
+      "title": "一個人遊關西🇯🇵｜神戶動物王國：尋找水豚君之旅！🐿️｜平價神戶牛鐵板燒🥩Steakland｜打卡小眾文青的購物街區🛍️Tor Road/Tor West～｜Solo Trip to Kobe",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "一個人遊關西🇯🇵｜神戶動物王國：尋找水豚君之旅！🐿️｜平價神戶牛鐵板燒🥩Steakland｜打卡小眾文青的購物街區🛍️Tor Road_Tor West～｜Solo Trip to Kobe (6Inubk5vRvk).md"
+    },
+    {
+      "id": "W6DpAQPTI5A",
+      "title": "獨自旅行VLOG🇯🇵｜一個人慢悠悠逛宇治🍵｜超有氛圍的京都夏日御手洗祭～🏮｜Solo Trip to Uji",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "獨自旅行VLOG🇯🇵｜一個人慢悠悠逛宇治🍵｜超有氛圍的京都夏日御手洗祭～🏮｜Solo Trip to Uji (W6DpAQPTI5A).md"
+    },
+    {
+      "id": "5ar2snmicXI",
+      "title": "4K｜輕巧且全能｜索尼A7CR實拍+測評｜秋日的老洋房City Walk～｜SONY A7CR Review",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "4K｜輕巧且全能｜索尼A7CR實拍+測評｜秋日的老洋房City Walk～｜SONY A7CR Review (5ar2snmicXI).md"
+    },
+    {
+      "id": "AUEzRlzHamA",
+      "title": "京都遊學日記EP2｜京都藝術大學語言學校初體驗🏫｜開學第一天的新鮮感｜新京極也太好逛～🏮｜Kyoto Japanese Language School｜KICL",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "京都遊學日記EP2｜京都藝術大學語言學校初體驗🏫｜開學第一天的新鮮感｜新京極也太好逛～🏮｜Kyoto Japanese Language School｜KICL (AUEzRlzHamA).md"
+    },
+    {
+      "id": "MjzbAN25LOg",
+      "title": "京都遊學日記EP1｜為什麼來日本上語言學校？🏫｜上學前先做兩天小遊客｜一個人逛日落後的鴨川🚶｜京都車站美食打卡～",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "京都遊學日記EP1｜為什麼來日本上語言學校？🏫｜上學前先做兩天小遊客｜一個人逛日落後的鴨川🚶｜京都車站美食打卡～ (MjzbAN25LOg).md"
+    },
+    {
+      "id": "NQ2ZvZc-up0",
+      "title": "東京自由行VLOG｜進入宮崎駿動畫世界🌲｜吉祥寺雨中散步☔️｜適合親子遊的大宮鐵道博物館🚞｜超人氣平價天婦羅飯🍤｜日式古道具雜貨鋪、文具店探店～｜TOKYO VLOG｜Ghibli museum",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "東京自由行VLOG｜進入宮崎駿動畫世界🌲｜吉祥寺雨中散步☔️｜適合親子遊的大宮鐵道博物館🚞｜超人氣平價天婦羅飯🍤｜日式古道具雜貨鋪、文具店探店～｜TOKYO VLOG｜Ghibli museum (NQ2ZvZc-up0).md"
+    },
+    {
+      "id": "zyqtkbGiz40",
+      "title": "東京近郊·鐮倉漫遊｜⛩️在神社洗錢😮、日落富士山海景🗻、森林里的古宅cafe🍰、一口酥脆的炸豬扒和最好吃的雞串燒🍽️｜Tokyo Day Drip to Kamakura Vlog 2023",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "東京近郊·鐮倉漫遊｜⛩️在神社洗錢😮、日落富士山海景🗻、森林里的古宅cafe🍰、一口酥脆的炸豬扒和最好吃的雞串燒🍽️｜Tokyo Day Drip to Kamakura Vlog 2023 (zyqtkbGiz40).md"
+    },
+    {
+      "id": "OUVL7hK7Neo",
+      "title": "後悔沒有早點入手的3C小配件📱｜焦糖色MOFT電腦包、iPhone周邊配件、相機腕帶、magsafe磁吸支架、顏值無敵的白色麥克風～",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "後悔沒有早點入手的3C小配件📱｜焦糖色MOFT電腦包、iPhone周邊配件、相機腕帶、magsafe磁吸支架、顏值無敵的白色麥克風～ (OUVL7hK7Neo).md"
+    },
+    {
+      "id": "SUkauMTlFCo",
+      "title": "東京近郊1日游🚞｜小江戶川越VLOG｜👘和服初體驗、百年老屋裡的鰻魚飯、⛩️冰川神社放紙人｜Day Trip to Kawagoe",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "東京近郊1日游🚞｜小江戶川越VLOG｜👘和服初體驗、百年老屋裡的鰻魚飯、⛩️冰川神社放紙人｜Day Trip to Kawagoe (SUkauMTlFCo).md"
+    },
+    {
+      "id": "sPPW98rQ6nY",
+      "title": "東京自由行VLOG🇯🇵｜值得推薦的超濃厚沾面🍜、茶主題酒店🍵、大排長龍的回轉壽司🍣、文具控和手作控的天堂📒～｜Tokyo Travel Vlog 2023",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "東京自由行VLOG🇯🇵｜值得推薦的超濃厚沾面🍜、茶主題酒店🍵、大排長龍的回轉壽司🍣、文具控和手作控的天堂📒～｜Tokyo Travel Vlog 2023 (sPPW98rQ6nY).md"
+    },
+    {
+      "id": "k52iV88SrRo",
+      "title": "2023年最令人心動的VLOG相機📷！｜Sony ZV-E1日本旅拍使用體驗｜小巧強大、新手友好、拍人拍景都超美｜實拍視頻、使用技巧分享",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "2023年最令人心動的VLOG相機📷！｜Sony ZV-E1日本旅拍使用體驗｜小巧強大、新手友好、拍人拍景都超美｜實拍視頻、使用技巧分享 (k52iV88SrRo).md"
+    },
+    {
+      "id": "oGG-9AWWVhY",
+      "title": "2023年最適合新手的免費剪輯軟體｜超多素材、輕鬆上字幕、美顏美妝、簡單易上手｜剪映教程和使用技巧｜CapCut Free Video Editing Tutorial for beginners",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "2023年最適合新手的免費剪輯軟體｜超多素材、輕鬆上字幕、美顏美妝、簡單易上手｜剪映教程和使用技巧｜CapCut Free Video Editing Tutorial for beginners (oGG-9AWWVhY).md"
+    },
+    {
+      "id": "Lz0KxyY-pKk",
+      "title": "創業兩年成果? 斜槓收入大爆發? 救護車人生初體驗?｜我的2022年回顧｜Notion年度復盤模版｜notion annual review template",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "創業兩年成果_ 斜槓收入大爆發_ 救護車人生初體驗_｜我的2022年回顧｜Notion年度復盤模版｜notion annual review template (Lz0KxyY-pKk).md"
+    },
+    {
+      "id": "HG5T53NnBW8",
+      "title": "（免費模板）2023年簡單高效的Notion模版｜我的Notion使用方法｜all-in-one的自我管理系統｜奶茶色電子手帳｜2023 notion free template",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "（免費模板）2023年簡單高效的Notion模版｜我的Notion使用方法｜all-in-one的自我管理系統｜奶茶色電子手帳｜2023 notion free template (HG5T53NnBW8).md"
+    },
+    {
+      "id": "jwT3Ykj8Gjo",
+      "title": "如何拍攝有質感vlog｜我的拍攝設備分享｜相機、麥克風、鏡頭｜SONY A7C",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "如何拍攝有質感vlog｜我的拍攝設備分享｜相機、麥克風、鏡頭｜SONY A7C (jwT3Ykj8Gjo).md"
+    },
+    {
+      "id": "0XJx8D4GU2o",
+      "title": "ami｜2023年手帳體系｜紙質手帳+notion電子手帳｜規劃、復盤、記錄",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "ami｜2023年手帳體系｜紙質手帳+notion電子手帳｜規劃、復盤、記錄 (0XJx8D4GU2o).md"
+    },
+    {
+      "id": "qrenTeB1yn0",
+      "title": "ami｜帶著我設計的第一本周計劃手帳來見面啦！",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "ami｜帶著我設計的第一本周計劃手帳來見面啦！ (qrenTeB1yn0).md"
+    },
+    {
+      "id": "ruEvFSMDpy4",
+      "title": "Traveler's Notebook 2022年唱片限定款手帳開箱！｜Unbox Traveler's Record 2022 Limited Sets ｜トラベラーズノート 限定セット",
+      "status": "archived",
+      "hasSubtitle": true,
+      "attempts": 1,
+      "filename": "Traveler's Notebook 2022年唱片限定款手帳開箱！｜Unbox Traveler's Record 2022 Limited Sets ｜トラベラーズノート 限定セット (ruEvFSMDpy4).md"
+    },
+    {
+      "id": "ipo3GOcPecM",
+      "title": "4個自我提升、改善生活的APP推薦｜習慣打卡、城市探店、白噪音、數位極簡｜What's on my iphone",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "4個自我提升、改善生活的APP推薦｜習慣打卡、城市探店、白噪音、數位極簡｜What's on my iphone (ipo3GOcPecM).md"
+    },
+    {
+      "id": "dSQl4w6V7JU",
+      "title": "2021年度愛用文具分享｜8個實用又可愛的手帳、筆記周邊好物～",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "2021年度愛用文具分享｜8個實用又可愛的手帳、筆記周邊好物～ (dSQl4w6V7JU).md"
+    },
+    {
+      "id": "sVNIZjBDPnw",
+      "title": "2022年手帳規劃｜ Planner and Journal Lineup｜Hobonichi、Traveler's Notebook、Artprintjapan Visualife、Midori",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "2022年手帳規劃｜ Planner and Journal Lineup｜Hobonichi、Traveler's Notebook、Artprintjapan Visualife、Midori (sVNIZjBDPnw).md"
+    },
+    {
+      "id": "WECxDdecWiM",
+      "title": "ami｜用Procreate制作 Vlog 小動畫 | How to use Procreate to create GIF for my Vlog",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "ami｜用Procreate制作 Vlog 小動畫 _ How to use Procreate to create GIF for my Vlog (WECxDdecWiM).md"
+    },
+    {
+      "id": "79SmD7i-i6c",
+      "title": "ami | Flip Through | My Korean Travel Journal",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "ami _ Flip Through _ My Korean Travel Journal (79SmD7i-i6c).md"
+    },
+    {
+      "id": "oL3c_8AYyrk",
+      "title": "ami | Seoul & Busan Travel Vlog",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "ami _ Seoul & Busan Travel Vlog (oL3c_8AYyrk).md"
+    },
+    {
+      "id": "SFcQTwcXxe8",
+      "title": "ami | 小米 Xprint | AR Photo Printer",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "ami _ 小米 Xprint _ AR Photo Printer (SFcQTwcXxe8).md"
+    },
+    {
+      "id": "d9cpznvQbEg",
+      "title": "ami | Our 5th Anniversary Vlog",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "ami _ Our 5th Anniversary Vlog (d9cpznvQbEg).md"
+    },
+    {
+      "id": "gkOxcQxr1uM",
+      "title": "ami | Hobonichi 2018 January Flip Through",
+      "status": "archived",
+      "hasSubtitle": false,
+      "attempts": 1,
+      "filename": "ami _ Hobonichi 2018 January Flip Through (gkOxcQxr1uM).md"
+    }
+  ]
+}

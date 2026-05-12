@@ -83,6 +83,17 @@ const TMP_DIR = path.join(DATA_DIR, ".tmp");
 const TASKS_FILE = path.join(DATA_DIR, ".tasks.json");
 const MANIFEST_FILENAME = ".archive-manifest.json";
 const SUBTITLE_LANG_PRIORITY = ["en", "zh-Hans", "zh"] as const;
+const YT_DLP_SHARED_ARGS = [
+  "--no-warnings",
+  "--cookies-from-browser",
+  "chrome",
+  "--remote-components",
+  "ejs:github",
+] as const;
+const YT_DLP_YOUTUBE_TAB_ARGS = [
+  "--extractor-args",
+  "youtubetab:skip=authcheck",
+] as const;
 const MAX_PARALLEL_DOWNLOADS = 1;
 const DOWNLOAD_INTERVAL_MS = 5_000;
 const RATE_LIMIT_BASE_DELAY_MS = 30_000;
@@ -362,6 +373,13 @@ function normalizeYouTubeSource(input: string): {
   }
 
   if (!/^https?:\/\//i.test(trimmed)) {
+    if (/^(UC|HC)[A-Za-z0-9_-]{20,}$/.test(trimmed)) {
+      return {
+        url: `https://www.youtube.com/channel/${trimmed}/videos`,
+        sourceType: "channel",
+      };
+    }
+
     const handle = trimmed.startsWith("@") ? trimmed : `@${trimmed}`;
     return {
       url: `https://www.youtube.com/${handle}/videos`,
@@ -1816,7 +1834,10 @@ export function getVideoRecordContent(
   return fs.readFileSync(filePath, "utf-8");
 }
 
-export async function createTask(sourceInput: string): Promise<Task> {
+export async function createTask(
+  sourceInput: string,
+  options: { onlyVideoIds?: string[] } = {}
+): Promise<Task> {
   const normalizedSource = normalizeYouTubeSource(sourceInput);
   const task = createTaskRecord({
     taskMode: "archive",
@@ -1830,7 +1851,7 @@ export async function createTask(sourceInput: string): Promise<Task> {
 
   registerTask(task);
 
-  processTask(task).catch((error: unknown) => {
+  processTask(task, options).catch((error: unknown) => {
     failTask(task, error instanceof Error ? error.message : String(error));
   });
 
@@ -1885,8 +1906,26 @@ export async function createRetryTask(channelName: string): Promise<Task> {
   return cloneTask(task);
 }
 
-async function processTask(task: Task) {
-  const videoList = await getVideoList(task);
+export async function listVideoCandidates(sourceInput: string): Promise<VideoListEntry[]> {
+  const normalizedSource = normalizeYouTubeSource(sourceInput);
+  const task = createTaskRecord({
+    taskMode: "archive",
+    sourceUrl: normalizedSource.url,
+    sourceType: normalizedSource.sourceType,
+    channelName:
+      normalizedSource.sourceType === "video"
+        ? ""
+        : deriveStorageNameFromSourceUrl(normalizedSource.url),
+  });
+  return getVideoList(task);
+}
+
+async function processTask(task: Task, options: { onlyVideoIds?: string[] } = {}) {
+  let videoList = await getVideoList(task);
+  if (options.onlyVideoIds && options.onlyVideoIds.length > 0) {
+    const wanted = new Set(options.onlyVideoIds);
+    videoList = videoList.filter((video) => wanted.has(video.id));
+  }
   if (videoList.length === 0) {
     throw new Error("No videos found for this source.");
   }
@@ -2005,22 +2044,15 @@ async function getVideoList(task: Task): Promise<VideoListEntry[]> {
             "--no-playlist",
             "--print",
             "%(id)s\t%(title)s",
-            "--no-warnings",
-            "--cookies-from-browser",
-            "chrome",
-            "--remote-components",
-            "ejs:github",
+            ...YT_DLP_SHARED_ARGS,
             task.sourceUrl,
           ]
         : [
             "--flat-playlist",
             "--print",
             "%(id)s\t%(title)s",
-            "--no-warnings",
-            "--cookies-from-browser",
-            "chrome",
-            "--remote-components",
-            "ejs:github",
+            ...YT_DLP_SHARED_ARGS,
+            ...YT_DLP_YOUTUBE_TAB_ARGS,
             task.sourceUrl,
           ];
 
@@ -2088,11 +2120,7 @@ async function downloadVideoArchive(videoId: string): Promise<VideoArchive> {
       SUBTITLE_LANG_PRIORITY.join(","),
       "--sub-format",
       "json3",
-      "--no-warnings",
-      "--cookies-from-browser",
-      "chrome",
-      "--remote-components",
-      "ejs:github",
+      ...YT_DLP_SHARED_ARGS,
       "-o",
       outputTemplate,
       `https://www.youtube.com/watch?v=${videoId}`,

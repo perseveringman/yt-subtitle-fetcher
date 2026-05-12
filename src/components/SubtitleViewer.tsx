@@ -102,9 +102,12 @@ export default function SubtitleViewer({ channel, filename }: Props) {
 
   useEffect(() => {
     let cancelled = false;
-    setState({ content: null, loading: true });
-    setTab("overview");
-    setProgress(0);
+    queueMicrotask(() => {
+      if (cancelled) return;
+      setState({ content: null, loading: true });
+      setTab("overview");
+      setProgress(0);
+    });
     const load = async () => {
       try {
         const res = await fetch(

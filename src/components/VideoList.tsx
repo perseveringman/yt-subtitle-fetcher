@@ -27,7 +27,7 @@ export default function VideoList({
 }: Props) {
   const [retrying, setRetrying] = useState(false);
   const [retryError, setRetryError] = useState("");
-  const missingVideos = videos.filter((video) => video.status === "missing");
+  const missingVideos = videos.filter((video) => video.status !== "archived");
   const archivedCount = videos.filter((video) => video.status === "archived").length;
 
   const handleRetryMissing = async () => {

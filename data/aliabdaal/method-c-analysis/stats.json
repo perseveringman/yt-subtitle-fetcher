@@ -1,0 +1,513 @@
+{
+  "total_videos": 670,
+  "manifest_videos": 670,
+  "years": {
+    "2020": 102,
+    "2023": 66,
+    "2021": 84,
+    "2022": 65,
+    "2024": 74,
+    "2025": 50,
+    "2026": 16,
+    "2019": 63,
+    "2017": 65,
+    "2018": 83,
+    "2016": 2
+  },
+  "formats": {
+    "vlog": 75,
+    "music": 41,
+    "tutorial": 159,
+    "q&a": 38,
+    "talk": 271,
+    "interview": 15,
+    "review": 71
+  },
+  "categories": {
+    "Education": 540,
+    "People & Blogs": 81,
+    "Travel & Events": 1,
+    "Howto & Style": 18,
+    "Science & Technology": 13,
+    "Music": 16,
+    "_none_": 1
+  },
+  "topics": {
+    "study-learning": 184,
+    "general": 143,
+    "money-finance": 55,
+    "medicine": 127,
+    "tools-tech": 130,
+    "career-life": 69,
+    "youtube-creator": 143,
+    "business": 44,
+    "productivity": 65,
+    "health": 11,
+    "ai": 9,
+    "music": 16
+  },
+  "top_viewed": [
+    {
+      "title": "9 Passive Income Ideas - How I Make $27k per Week",
+      "video_id": "M5y69v1RbU0",
+      "upload_date": "2021-04-15",
+      "format": "talk",
+      "topics": [
+        "money-finance"
+      ],
+      "view_count": 13918602,
+      "file_name": "9 Passive Income Ideas - How I Make $27k per Week (M5y69v1RbU0).md"
+    },
+    {
+      "title": "How I Type REALLY Fast (156 Words per Minute)",
+      "video_id": "1ArVtCQqQRE",
+      "upload_date": "2020-08-18",
+      "format": "talk",
+      "topics": [
+        "general"
+      ],
+      "view_count": 10990637,
+      "file_name": "How I Type REALLY Fast (156 Words per Minute) (1ArVtCQqQRE).md"
+    },
+    {
+      "title": "How to Invest for Beginners",
+      "video_id": "gFQNPmLKj1k",
+      "upload_date": "2020-10-11",
+      "format": "tutorial",
+      "topics": [
+        "money-finance"
+      ],
+      "view_count": 9423604,
+      "file_name": "How to Invest for Beginners (gFQNPmLKj1k).md"
+    },
+    {
+      "title": "How I ranked 1st at Cambridge University - The Essay Memorisation Framework",
+      "video_id": "-46Vyiwat_Y",
+      "upload_date": "2019-04-09",
+      "format": "tutorial",
+      "topics": [
+        "study-learning"
+      ],
+      "view_count": 9032405,
+      "file_name": "How I ranked 1st at Cambridge University - The Essay Memorisation Framework (-46Vyiwat_Y).md"
+    },
+    {
+      "title": "My Evidence-Based Skincare Routine",
+      "video_id": "OrElyY7MFVs",
+      "upload_date": "2022-06-28",
+      "format": "talk",
+      "topics": [
+        "general"
+      ],
+      "view_count": 8739351,
+      "file_name": "My Evidence-Based Skincare Routine (OrElyY7MFVs).md"
+    },
+    {
+      "title": "Why You're Always Tired - 7 Myths Ruining Your Sleep",
+      "video_id": "qlf9-573MhI",
+      "upload_date": "2022-12-09",
+      "format": "talk",
+      "topics": [
+        "general"
+      ],
+      "view_count": 6411885,
+      "file_name": "Why You're Always Tired - 7 Myths Ruining Your Sleep (qlf9-573MhI).md"
+    },
+    {
+      "title": "How I take notes on my iPad Pro in medical school - Cambridge University medical student",
+      "video_id": "waR3xBDHMqw",
+      "upload_date": "2018-06-02",
+      "format": "review",
+      "topics": [
+        "medicine",
+        "study-learning"
+      ],
+      "view_count": 6178697,
+      "file_name": "How I take notes on my iPad Pro in medical school - Cambridge University medical student (waR3xBDHMqw).md"
+    },
+    {
+      "title": "How I Manage My Time - 10 Time Management Tips",
+      "video_id": "iONDebHX9qk",
+      "upload_date": "2021-04-18",
+      "format": "talk",
+      "topics": [
+        "productivity"
+      ],
+      "view_count": 5587528,
+      "file_name": "How I Manage My Time - 10 Time Management Tips (iONDebHX9qk).md"
+    },
+    {
+      "title": "How to study for exams - Evidence-based revision tips",
+      "video_id": "ukLnPbIffxE",
+      "upload_date": "2018-04-04",
+      "format": "tutorial",
+      "topics": [
+        "study-learning",
+        "medicine"
+      ],
+      "view_count": 5439419,
+      "file_name": "How to study for exams - Evidence-based revision tips (ukLnPbIffxE).md"
+    },
+    {
+      "title": "If I Started a YouTube Channel in 2026, I'd Do This",
+      "video_id": "T2M9hSswlIs",
+      "upload_date": "2023-02-14",
+      "format": "talk",
+      "topics": [
+        "youtube-creator"
+      ],
+      "view_count": 4561465,
+      "file_name": "If I Started a YouTube Channel in 2026, I'd Do This (T2M9hSswlIs).md"
+    },
+    {
+      "title": "How I Manage My Time - The Trident Calendar System",
+      "video_id": "6o2tm00Ar8A",
+      "upload_date": "2023-04-24",
+      "format": "talk",
+      "topics": [
+        "productivity"
+      ],
+      "view_count": 4214015,
+      "file_name": "How I Manage My Time - The Trident Calendar System (6o2tm00Ar8A).md"
+    },
+    {
+      "title": "21 Life Lessons for Teenagers",
+      "video_id": "W3CDMcWlPyM",
+      "upload_date": "2021-02-10",
+      "format": "tutorial",
+      "topics": [
+        "career-life"
+      ],
+      "view_count": 4063140,
+      "file_name": "21 Life Lessons for Teenagers (W3CDMcWlPyM).md"
+    },
+    {
+      "title": "The Book That Changed My Financial Life 🤑",
+      "video_id": "Gg8_TA7U0Uw",
+      "upload_date": "2021-12-09",
+      "format": "talk",
+      "topics": [
+        "money-finance",
+        "career-life",
+        "productivity",
+        "study-learning"
+      ],
+      "view_count": 3865776,
+      "file_name": "The Book That Changed My Financial Life 🤑 (Gg8_TA7U0Uw).md"
+    },
+    {
+      "title": "How to Invest for Beginners (2026)",
+      "video_id": "lNdOtlpmH5U",
+      "upload_date": "2023-02-26",
+      "format": "tutorial",
+      "topics": [
+        "money-finance"
+      ],
+      "view_count": 3500543,
+      "file_name": "How to Invest for Beginners (2026) (lNdOtlpmH5U).md"
+    },
+    {
+      "title": "How To Actually Achieve Your Goals in 2026 (Evidence-Based)",
+      "video_id": "WONRS7BLh4g",
+      "upload_date": "2024-12-20",
+      "format": "tutorial",
+      "topics": [
+        "general"
+      ],
+      "view_count": 3422730,
+      "file_name": "How To Actually Achieve Your Goals in 2026 (Evidence-Based) (WONRS7BLh4g).md"
+    },
+    {
+      "title": "Tiny Changes, Remarkable Results - Atomic Habits by James Clear",
+      "video_id": "YT7tQzmGRLA",
+      "upload_date": "2020-05-10",
+      "format": "tutorial",
+      "topics": [
+        "productivity",
+        "study-learning"
+      ],
+      "view_count": 3242495,
+      "file_name": "Tiny Changes, Remarkable Results - Atomic Habits by James Clear (YT7tQzmGRLA).md"
+    },
+    {
+      "title": "6 Side Hustles Students Can Start in 2026",
+      "video_id": "-ZscZv-IMyI",
+      "upload_date": "2023-09-15",
+      "format": "talk",
+      "topics": [
+        "general"
+      ],
+      "view_count": 3240593,
+      "file_name": "6 Side Hustles Students Can Start in 2026 (-ZscZv-IMyI).md"
+    },
+    {
+      "title": "How I Remember Everything I Read",
+      "video_id": "AjoxkxM_I5g",
+      "upload_date": "2020-10-08",
+      "format": "talk",
+      "topics": [
+        "career-life",
+        "study-learning"
+      ],
+      "view_count": 3196349,
+      "file_name": "How I Remember Everything I Read (AjoxkxM_I5g).md"
+    },
+    {
+      "title": "How to Find a Career You Genuinely Love",
+      "video_id": "O3m14PVOq_g",
+      "upload_date": "2023-01-12",
+      "format": "tutorial",
+      "topics": [
+        "career-life"
+      ],
+      "view_count": 3193130,
+      "file_name": "How to Find a Career You Genuinely Love (O3m14PVOq_g).md"
+    },
+    {
+      "title": "How to Study for Exams - An Evidence-Based Masterclass",
+      "video_id": "Lt54CX9DmS4",
+      "upload_date": "2023-10-03",
+      "format": "tutorial",
+      "topics": [
+        "productivity",
+        "study-learning"
+      ],
+      "view_count": 3099372,
+      "file_name": "How to Study for Exams - An Evidence-Based Masterclass (Lt54CX9DmS4).md"
+    }
+  ],
+  "top_duration": [
+    {
+      "title": "Real-Time Study With Me - 3.5 Hours With Music",
+      "video_id": "fKNiV9UHPPo",
+      "upload_date": "2020-04-28",
+      "format": "music",
+      "topics": [
+        "general"
+      ],
+      "duration_seconds": 12547,
+      "file_name": "Real-Time Study With Me - 3.5 Hours With Music (fKNiV9UHPPo).md"
+    },
+    {
+      "title": "How to Study for Exams with Flashcards (Anki Masterclass)",
+      "video_id": "8zaKVFC9Eu4",
+      "upload_date": "2024-10-08",
+      "format": "tutorial",
+      "topics": [
+        "study-learning",
+        "productivity",
+        "business",
+        "youtube-creator"
+      ],
+      "duration_seconds": 11293,
+      "file_name": "How to Study for Exams with Flashcards (Anki Masterclass) (8zaKVFC9Eu4).md"
+    },
+    {
+      "title": "How to Study for Exams - An Evidence-Based Masterclass",
+      "video_id": "Lt54CX9DmS4",
+      "upload_date": "2023-10-03",
+      "format": "tutorial",
+      "topics": [
+        "productivity",
+        "study-learning"
+      ],
+      "duration_seconds": 10177,
+      "file_name": "How to Study for Exams - An Evidence-Based Masterclass (Lt54CX9DmS4).md"
+    },
+    {
+      "title": "He Built a $1M Business in 12 Months - Every Step Explained (Case Study)",
+      "video_id": "f7IECetqDLY",
+      "upload_date": "2025-06-13",
+      "format": "talk",
+      "topics": [
+        "general"
+      ],
+      "duration_seconds": 9614,
+      "file_name": "He Built a $1M Business in 12 Months - Every Step Explained (Case Study) (f7IECetqDLY).md"
+    },
+    {
+      "title": "Real-Time Study With Me - 2 Hours With Music",
+      "video_id": "cTH824WnA3U",
+      "upload_date": "2022-04-06",
+      "format": "music",
+      "topics": [
+        "study-learning",
+        "tools-tech"
+      ],
+      "duration_seconds": 7069,
+      "file_name": "Real-Time Study With Me - 2 Hours With Music (cTH824WnA3U).md"
+    },
+    {
+      "title": "1.5 Hour Study With Me in Sweden (with music)",
+      "video_id": "bfk80hDfLXU",
+      "upload_date": "2023-05-17",
+      "format": "music",
+      "topics": [
+        "general"
+      ],
+      "duration_seconds": 5163,
+      "file_name": "1.5 Hour Study With Me in Sweden (with music) (bfk80hDfLXU).md"
+    },
+    {
+      "title": "How I Built a New $1m Business in 12 Months",
+      "video_id": "ae9qy-7lBmo",
+      "upload_date": "2024-11-22",
+      "format": "talk",
+      "topics": [
+        "business",
+        "youtube-creator"
+      ],
+      "duration_seconds": 5088,
+      "file_name": "How I Built a New $1m Business in 12 Months (ae9qy-7lBmo).md"
+    },
+    {
+      "title": "My honest advice to someone who wants financial freedom",
+      "video_id": "7nxUAyxNUKE",
+      "upload_date": "2025-09-02",
+      "format": "q&a",
+      "topics": [
+        "money-finance"
+      ],
+      "duration_seconds": 4588,
+      "file_name": "My honest advice to someone who wants financial freedom (7nxUAyxNUKE).md"
+    },
+    {
+      "title": "How I Would Build A Business in 2026 (If I had to start over)",
+      "video_id": "Jc7gURfsNqk",
+      "upload_date": "2025-09-19",
+      "format": "talk",
+      "topics": [
+        "business"
+      ],
+      "duration_seconds": 4524,
+      "file_name": "How I Would Build A Business in 2026 (If I had to start over) (Jc7gURfsNqk).md"
+    },
+    {
+      "title": "The Proven, Reliable Path to Earn $1M (Step By Step)",
+      "video_id": "rDrw3kkqKac",
+      "upload_date": "2025-10-10",
+      "format": "talk",
+      "topics": [
+        "business"
+      ],
+      "duration_seconds": 4340,
+      "file_name": "The Proven, Reliable Path to Earn $1M (Step By Step) (rDrw3kkqKac).md"
+    },
+    {
+      "title": "How to Get Ahead of 99% of People (Discipline Isn't Enough)",
+      "video_id": "lmCaQxk4b8c",
+      "upload_date": "2025-05-09",
+      "format": "tutorial",
+      "topics": [
+        "productivity",
+        "youtube-creator"
+      ],
+      "duration_seconds": 4174,
+      "file_name": "How to Get Ahead of 99% of People (Discipline Isn't Enough) (lmCaQxk4b8c).md"
+    },
+    {
+      "title": "The Ultimate Guide to Building a Lifestyle Business",
+      "video_id": "FSj7LX5GYgA",
+      "upload_date": "2025-09-24",
+      "format": "tutorial",
+      "topics": [
+        "general"
+      ],
+      "duration_seconds": 4125,
+      "file_name": "The Ultimate Guide to Building a Lifestyle Business (FSj7LX5GYgA).md"
+    },
+    {
+      "title": "A Beginner's Guide to Making Money with Online Courses",
+      "video_id": "TmuDsq4m4Ts",
+      "upload_date": "2024-05-21",
+      "format": "tutorial",
+      "topics": [
+        "business",
+        "youtube-creator"
+      ],
+      "duration_seconds": 4011,
+      "file_name": "A Beginner's Guide to Making Money with Online Courses (TmuDsq4m4Ts).md"
+    },
+    {
+      "title": "The AI Skill Gap Is About To Get Brutal",
+      "video_id": "qLMYOhaKcZs",
+      "upload_date": "2026-04-18",
+      "format": "talk",
+      "topics": [
+        "study-learning",
+        "ai"
+      ],
+      "duration_seconds": 4006,
+      "file_name": "The AI Skill Gap Is About To Get Brutal (qLMYOhaKcZs).md"
+    },
+    {
+      "title": "We Had a Baby! Life Update + Reflections",
+      "video_id": "LLdtdiJu7DE",
+      "upload_date": "2025-07-31",
+      "format": "vlog",
+      "topics": [
+        "general"
+      ],
+      "duration_seconds": 3728,
+      "file_name": "We Had a Baby! Life Update + Reflections (LLdtdiJu7DE).md"
+    },
+    {
+      "title": "Financial Freedom is Easy, After You Learn This",
+      "video_id": "zYKJdzyAviE",
+      "upload_date": "2025-08-08",
+      "format": "talk",
+      "topics": [
+        "money-finance"
+      ],
+      "duration_seconds": 3559,
+      "file_name": "Financial Freedom is Easy, After You Learn This (zYKJdzyAviE).md"
+    },
+    {
+      "title": "The KEY Study Techniques for Exam Success",
+      "video_id": "Hw3SpLQYeLA",
+      "upload_date": "2020-03-13",
+      "format": "talk",
+      "topics": [
+        "study-learning"
+      ],
+      "duration_seconds": 3378,
+      "file_name": "The KEY Study Techniques for Exam Success (Hw3SpLQYeLA).md"
+    },
+    {
+      "title": "How to Find Your Life’s Purpose",
+      "video_id": "euNliPIJ7Kc",
+      "upload_date": "2025-10-20",
+      "format": "tutorial",
+      "topics": [
+        "career-life"
+      ],
+      "duration_seconds": 3210,
+      "file_name": "How to Find Your Life’s Purpose (euNliPIJ7Kc).md"
+    },
+    {
+      "title": "Full Course - How to Type 3x Faster",
+      "video_id": "tU_AXrvQjpo",
+      "upload_date": "2024-06-04",
+      "format": "tutorial",
+      "topics": [
+        "tools-tech",
+        "business",
+        "youtube-creator"
+      ],
+      "duration_seconds": 3003,
+      "file_name": "Full Course - How to Type 3x Faster (tU_AXrvQjpo).md"
+    },
+    {
+      "title": "How Much Money I Earn as a Doctor + YouTuber",
+      "video_id": "VTTp5A-rSdc",
+      "upload_date": "2020-12-28",
+      "format": "talk",
+      "topics": [
+        "money-finance",
+        "youtube-creator"
+      ],
+      "duration_seconds": 2972,
+      "file_name": "How Much Money I Earn as a Doctor + YouTuber (VTTp5A-rSdc).md"
+    }
+  ]
+}

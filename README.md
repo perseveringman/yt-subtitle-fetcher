@@ -64,3 +64,45 @@ npm run dev
 - `yt-dlp` available in `PATH`
 - Chrome cookies available locally, since the app currently uses `--cookies-from-browser chrome`
 - put your DataHub upload key into `.env.local` as `DATAHUB_API_KEY=...` if you want archived videos uploaded to DataHub / podadmin
+
+## Scheduled DataHub execution
+
+The app can run as the `yt_local` executor for DataHub subscriptions. DataHub owns the subscription list; this app polls due YouTube subscriptions every 5 minutes, filters existing `youtube:<video_id>` docs through `/api/v1/documents/exists`, archives missing videos, uploads them, then reports run status back to DataHub.
+
+Set `.env.local`:
+
+```bash
+PODADMIN_API_URL=http://localhost:8000
+DATAHUB_API_KEY=dh_...
+```
+
+Manual tick for debugging:
+
+```bash
+curl -X POST http://localhost:5008/api/cron/tick
+```
+
+Health check:
+
+```bash
+curl http://localhost:5008/api/cron/health
+```
+
+The response reports best-effort in-process state:
+
+```json
+{
+  "last_tick_at": null,
+  "running_tasks": 0,
+  "cached_subs_count": null,
+  "next_tick_at": null
+}
+```
+
+Install or remove the macOS LaunchAgent from the project root:
+
+```bash
+pnpm build
+scripts/install-launchagent.sh
+scripts/uninstall-launchagent.sh
+```

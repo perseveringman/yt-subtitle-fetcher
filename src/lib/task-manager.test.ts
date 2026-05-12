@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { chmodSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { chmodSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -21,13 +21,19 @@ function writeFakeYtDlp(
   {
     subtitleContent = DEFAULT_SUBTITLE_JSON3,
     subtitleExt = "en.json3",
-  }: { subtitleContent?: string; subtitleExt?: string } = {}
+    argsLogPath = null,
+  }: { subtitleContent?: string; subtitleExt?: string; argsLogPath?: string | null } = {}
 ) {
   const scriptPath = path.join(binDir, "yt-dlp");
   const script = String.raw`#!/usr/bin/env node
 const fs = require("node:fs");
 
 const args = process.argv.slice(2);
+const argsLogPath = ${JSON.stringify(argsLogPath)};
+
+if (argsLogPath) {
+  fs.appendFileSync(argsLogPath, JSON.stringify(args) + "\n", "utf8");
+}
 
 if (args.includes("--print")) {
   process.stdout.write("abc123\tExample Video\n");
@@ -176,6 +182,123 @@ test("uploads agent-friendly JSON payload and keeps needs_review as a soft warni
     } else {
       process.env.DATAHUB_API_KEY = originalDataHubApiKey;
     }
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
+});
+
+test("skips youtubetab authcheck when resolving channel video lists", async () => {
+  const tempRoot = mkdtempSync(path.join(os.tmpdir(), "yt-subtitle-fetcher-"));
+  const binDir = path.join(tempRoot, "bin");
+  const argsLogPath = path.join(tempRoot, "yt-dlp-args.log");
+  mkdirSync(binDir, { recursive: true });
+  writeFakeYtDlp(binDir, { argsLogPath });
+
+  const originalCwd = process.cwd();
+  const originalPath = process.env.PATH ?? "";
+  const originalDataHubApiKey = process.env.DATAHUB_API_KEY;
+  const originalFetch = globalThis.fetch;
+  const uploadRequests: Array<{ url: string; init: RequestInit | undefined }> = [];
+
+  globalThis.fetch = async (input, init) => {
+    uploadRequests.push({ url: String(input), init });
+    return new Response(
+      JSON.stringify({
+        doc_id: "youtube:abc123",
+        file_path: "data/episodes/youtube/yt-subtitle-fetcher/2026/example.md",
+      }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  };
+
+  try {
+    process.chdir(tempRoot);
+    process.env.PATH = `${binDir}:${originalPath}`;
+    process.env.DATAHUB_API_KEY = "dh_test_key_from_env";
+
+    const taskManager = await import(
+      `${pathToFileURL(TASK_MANAGER_MODULE_PATH).href}?t=${Date.now()}`
+    );
+
+    const task = await taskManager.createTask("@a16z");
+
+    await waitFor(() => {
+      const currentTask = taskManager.getTask(task.id);
+      return currentTask?.status === "done";
+    });
+    await waitFor(() => uploadRequests.length === 1);
+
+    const lines = readFileSync(argsLogPath, "utf8")
+      .trim()
+      .split("\n")
+      .filter(Boolean)
+      .map((line) => JSON.parse(line) as string[]);
+
+    assert.ok(lines.length >= 2);
+    assert.deepEqual(lines[0].slice(0, 7), [
+      "--flat-playlist",
+      "--print",
+      "%(id)s\t%(title)s",
+      "--no-warnings",
+      "--cookies-from-browser",
+      "chrome",
+      "--remote-components",
+    ]);
+    assert.ok(lines[0].includes("--extractor-args"));
+    assert.ok(lines[0].includes("youtubetab:skip=authcheck"));
+    assert.equal(lines[0][lines[0].length - 1], "https://www.youtube.com/@a16z/videos");
+  } finally {
+    globalThis.fetch = originalFetch;
+    process.chdir(originalCwd);
+    process.env.PATH = originalPath;
+    if (originalDataHubApiKey === undefined) {
+      delete process.env.DATAHUB_API_KEY;
+    } else {
+      process.env.DATAHUB_API_KEY = originalDataHubApiKey;
+    }
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
+});
+
+test("treats bare YouTube channel ids as channel URLs when resolving subscriptions", async () => {
+  const tempRoot = mkdtempSync(path.join(os.tmpdir(), "yt-subtitle-fetcher-"));
+  const binDir = path.join(tempRoot, "bin");
+  const argsLogPath = path.join(tempRoot, "yt-dlp-args.log");
+  mkdirSync(binDir, { recursive: true });
+  writeFakeYtDlp(binDir, { argsLogPath });
+
+  const originalCwd = process.cwd();
+  const originalPath = process.env.PATH ?? "";
+
+  try {
+    process.chdir(tempRoot);
+    process.env.PATH = `${binDir}:${originalPath}`;
+
+    const taskManager = await import(
+      `${pathToFileURL(TASK_MANAGER_MODULE_PATH).href}?t=${Date.now()}`
+    );
+
+    const candidates = await taskManager.listVideoCandidates("UC9cn0TuPq4dnbTY-CBsm8XA");
+    assert.deepEqual(candidates, [{ id: "abc123", title: "Example Video" }]);
+
+    const lines = readFileSync(argsLogPath, "utf8")
+      .trim()
+      .split("\n")
+      .filter(Boolean)
+      .map((line) => JSON.parse(line) as string[]);
+
+    assert.equal(lines.length, 1);
+    assert.ok(lines[0].includes("--extractor-args"));
+    assert.ok(lines[0].includes("youtubetab:skip=authcheck"));
+    assert.equal(
+      lines[0][lines[0].length - 1],
+      "https://www.youtube.com/channel/UC9cn0TuPq4dnbTY-CBsm8XA/videos"
+    );
+  } finally {
+    process.chdir(originalCwd);
+    process.env.PATH = originalPath;
     rmSync(tempRoot, { recursive: true, force: true });
   }
 });

@@ -75,3 +75,11 @@ export function getDataHubUploadApiKey() {
   const podadminApiKey = process.env.PODADMIN_API_KEY?.trim();
   return podadminApiKey ? podadminApiKey : null;
 }
+
+/**
+ * @returns {string}
+ */
+export function getDataHubApiBaseUrl() {
+  ensureEnvLoaded();
+  return (process.env.PODADMIN_API_URL || process.env.DATAHUB_API_URL || "http://localhost:8000").replace(/\/+$/, "");
+}
